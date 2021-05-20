@@ -23,5 +23,5 @@ jobs:
       - name: Build and push with tag ${{ env.RELEASE }}-${{ env.BUILD_NUMBER }}
         working-directory: labs/compose-build/rng
         run: |
-          docker-compose -f docker-compose.yaml -f docker-compose-build.yaml build --pull
-          docker-compose -f docker-compose.yaml -f docker-compose-build.yaml push
+          docker-compose -f docker-compose.yml -f docker-compose-build.yml build --pull
+          docker-compose -f docker-compose.yml -f docker-compose-build.yml push
