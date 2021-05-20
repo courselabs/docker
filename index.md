@@ -20,7 +20,7 @@ These are hands-on resources to help you learn Docker.
 ## Part 2 - Multi-container Applications
 
 - [Docker Compose](labs/compose)
-- [Building and running apps with Compose](labs/compose-build)
+- [Building and modelling apps with Compose](labs/compose-build)
 - [Limitations of Compose](labs/compose-limits)
 - [Compose Hackathon](hackathon)
 

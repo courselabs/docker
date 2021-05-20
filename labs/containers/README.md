@@ -134,15 +134,7 @@ docker stats <container-id>
 
 ## Lab
 
-container fs - copy files from tls generator; 
+Java app
 
-```
-docker cp af00:/certs/server-cert.pem .
-docker cp af00:/certs/server-cert.key .
-```
-
-then tidy all up
-
-```
-docker rm -f $(docker ps -aq)
-```
+- find an official Java image, run it to confirm Java version
+- now find the *smallest* image for Java 8 (8-jdk-alpine), is that the best option to use?

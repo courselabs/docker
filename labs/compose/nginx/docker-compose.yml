@@ -1,0 +1,7 @@
+version: "3.7"
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8082:80"

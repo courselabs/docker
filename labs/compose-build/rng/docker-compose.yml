@@ -1,0 +1,15 @@
+services:
+  rng-api:
+    image: dockerfundamentals/rng-api:${RELEASE:-21.05}-${BUILD_NUMBER:-0}
+    networks:
+      - app-net
+
+  rng-web:
+    image: dockerfundamentals/rng-web:${RELEASE:-21.05}-${BUILD_NUMBER:-0}
+    environment:
+      - RngApi__Url=http://rng-api/rng
+    networks:
+      - app-net
+
+networks:
+  app-net:

@@ -1,0 +1,9 @@
+services:
+  rng-api:
+    environment:
+      - Logging__LogLevel__Default=Debug
+    scale: 3
+
+  rng-web:
+    ports:
+      - "8090:80"
