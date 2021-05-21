@@ -6,6 +6,14 @@
 
 - manual run
 
+docker run -d -p 8088:80 --name rng-web dockerfundamentals/rng-web:21.05
+
+Browse to http://localhost:8088 & try to get a random number
+
+docker logs rng-web
+
+> Needs another component - expects to find over the network. Could run another container, but better to spec in Compose.
+
 ## Compose App Definition
 
 - [](labs\compose\nginx\docker-compose.yml)

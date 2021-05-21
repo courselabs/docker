@@ -1,0 +1,12 @@
+services:
+  rng-api:
+    image: dockerfundamentals/rng-api:${RELEASE:-21.05}
+    env_file: ./config/prod/logging.env
+    volumes:
+      - ./config/prod/api:/app/config
+
+  rng-web:
+    image: dockerfundamentals/rng-web:${RELEASE:-21.05}
+    env_file: ./config/prod/logging.env
+    ports:
+      - "8000:80"

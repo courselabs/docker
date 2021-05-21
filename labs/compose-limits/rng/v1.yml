@@ -1,12 +1,10 @@
-version: "3.7"
-
 services:
   rng-api:
     image: dockerfundamentals/rng-api:21.05
     environment:
-      - Logging__LogLevel__Default=Debug
-    ports:
-      - "8087:80"
+      - Rng__FailAfter__Enabled=true
+      - Rng__FailAfter__CallCount=3
+      - Rng__FailAfter__Action=Exit
     networks:
       - app-net
 
