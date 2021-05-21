@@ -15,7 +15,7 @@ namespace Numbers.Web.Services
         {
             _config = config;
             _logger = logger;
-            _logger.LogDebug($"Using API at: {_config["RngApi:Url"]}");
+            _logger.LogInformation($"Using API at: {_config["RngApi:Url"]}");
         }
 
         public int GetNumber()
