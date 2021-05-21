@@ -1,0 +1,6 @@
+services:
+  rng-api:
+    image: dockerfundamentals/rng-api:${RELEASE:-21.05}
+
+  rng-web:
+    image: dockerfundamentals/rng-web:${RELEASE:-21.05}

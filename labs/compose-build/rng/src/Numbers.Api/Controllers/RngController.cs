@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Numbers.Api.Controllers
@@ -11,10 +12,12 @@ namespace Numbers.Api.Controllers
         private static Random _Random = new Random();
         private static int _CallCount;
 
+        private readonly IConfiguration _config;
         private readonly ILogger<RngController> _logger;
 
-        public RngController(ILogger<RngController> logger)
+        public RngController(IConfiguration config, ILogger<RngController> logger)
         {
+            _config = config;
             _logger = logger;
         }
 
@@ -22,15 +25,23 @@ namespace Numbers.Api.Controllers
         public IActionResult Get()
         {
             _CallCount++;
-            //if (_CallCount > 3)
-            //{
-            //   Status.Healthy = false;
-            //}
+            if (_config.GetValue<bool>("Rng:FailAfter:Enabled") && _CallCount > _config.GetValue<int>("Rng:FailAfter:CallCount"))
+            {
+                if (_config["Rng:FailAfter:Action"] == "Exit")
+                {
+                    _logger.LogError($"FailAfter enabled. Call: {_CallCount}. Exiting.");
+                    Environment.Exit(100);
+                }
+                _logger.LogWarning($"FailAfter enabled. Call: {_CallCount}. Going unhealthy.");
+                Status.Healthy = false;
+            }
 
             if (Status.Healthy)
             {
-                var n = _Random.Next(0,100);
-                _logger.LogDebug($"Call: {_CallCount}. Returning random number: {n}");
+                var min = _config.GetValue<int>("Rng:Range:Min");
+                var max = _config.GetValue<int>("Rng:Range:Max");
+                var n = _Random.Next(min, max);
+                _logger.LogDebug($"Call: {_CallCount}. Returning random number: {n}, fom min: {min}, max: {max}");
                 return Ok(n);
             }
             else
