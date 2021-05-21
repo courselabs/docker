@@ -1,0 +1,39 @@
+services:
+
+  products-db:
+    image: widgetario/products-db:21.03
+    ports:
+      - "5432:5432"
+    networks:
+      - app-net
+
+  products-api:
+    image: widgetario/products-api:21.03
+    environment:
+      - PRICE_FACTOR=1.5
+    ports:
+      - "8081:80"
+    networks:
+      - app-net
+
+  stock-api:
+    image: widgetario/stock-api:21.03
+    ports:
+      - "8082:8080"
+    networks:
+      - app-net
+  
+  web:
+    image: widgetario/web:21.03
+    environment:
+      - Widgetario__Theme=dark
+    volumes:
+      - ./config/web:/app/config
+      - ./logs/web:/logs
+    ports:
+      - "8080:80"
+    networks:
+      - app-net
+
+networks:
+  app-net:

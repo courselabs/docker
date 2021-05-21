@@ -1,0 +1,26 @@
+services:
+
+  products-db:
+    image: widgetario/products-db:21.03
+    networks:
+      - app-net
+
+  products-api:
+    image: widgetario/products-api:21.03
+    networks:
+      - app-net
+
+  stock-api:
+    image: widgetario/stock-api:21.03
+    networks:
+      - app-net
+  
+  web:
+    image: widgetario/web:21.03
+    ports:
+      - "8080:80"
+    networks:
+      - app-net
+
+networks:
+  app-net:

@@ -60,7 +60,7 @@ localhost:8000, bigger rng range
 docker image inspect dockerfundamentals/rng-web:21.05-0
 ```
 
-- GH workflow
+- .github\workflows\rng-build.yml GH workflow
 
 https://github.com/courselabs/docker-fundamentals/actions
 

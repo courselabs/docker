@@ -1,1 +1,2 @@
 *.pem
+hackathon/**/logs/web/app.log
