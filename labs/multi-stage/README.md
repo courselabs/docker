@@ -31,7 +31,7 @@ $env:DOCKER_BUILDKIT=0
 export DOCKER_BUILDKIT=0
 ```
 
-Here's a [simple multi-stage Dockerfile](labs\multi-stage\simple\Dockerfile):
+Here's a [simple multi-stage Dockerfile](/labs/multi-stage/simple/Dockerfile):
 
 - the `base` stage uses Alpine and simulates adding some packages
 - the `build` stage builds on the base and simulates an app build
@@ -134,7 +134,7 @@ The images you use and the commands you run are different for each language, but
 - [golang]() for Go apps - they don't need a runtime so the final image can be [scratch]()
 - [dotnet/sdk] for .NET Core/5 apps, using [dotnet/runtime]() or [dotnet/aspnet]() for the final app image
 
-We won't cover different languages in detail. The [whoami Dockerfile](labs\multi-stage\whoami\Dockerfile) shows how the pattern works, using a Go application:
+We won't cover different languages in detail. The [whoami Dockerfile](/labs/multi-stage/whoami/Dockerfile) shows how the pattern works, using a Go application:
 
 - the builder stages starts from the Go SDK image
 - it installs the packages the app needs for building
@@ -192,27 +192,15 @@ curl localhost:<port>
 
 ## Lab
 
-TODO
+Apps need special Linux permissions to listen on the standard HTTP ports - even inside a container.
 
-___
-## **EXTRA** Ports and command parameters
+The whoami app supports an option to configure the port it listens on, so you can use a non-standard port and potentially run with tighter security.
 
-<details>
-  <summary>Listening on different ports</summary>
+Your goal for this lab is to run the whoami app in a container - using the `-port` argument to listen on a specific port. What happens when you run a container with the `-P` (`--publish-all`) option? Does Docker map the new port correctly?
 
-docker run -d -P --name whoami2 whoami -port 5000
+What do you need to do to run a working container?
 
-docker logs whoami2
-
-docker port whoami2
-```
-
-curl localhost:port
-
-```
-docker run -it --entrypoint sh whoami
-
-</details><br/>
+> Stuck? Try [hints](hints.md) or check the [solution](solution.md).
 
 ___
 ## Cleanup
