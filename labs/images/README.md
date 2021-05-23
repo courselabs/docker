@@ -267,6 +267,8 @@ Not all official images are on Docker Hub. Microsoft uses its own image registry
 ___
 ## **EXTRA** Overriding image content
 
+<details>
+  <summary>Environment variables and files</summary>
 
 ```
 docker build -t dockerfun/network-test ./labs/images/network-test
@@ -293,6 +295,8 @@ docker run -e TEST_DOMAIN=k8sfun.courselabs.co dockerfun/network-test:override
 docker image history dockerfun/network-test
 
 docker image history dockerfun/network-test:override
+
+</details><br/>
 
 ___
 ## Cleanup

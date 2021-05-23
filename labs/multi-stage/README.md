@@ -61,7 +61,7 @@ docker run simple
 
 # BuildKit and build targets
 
-BuildKit an alternative build engine in Docker. It's heavily optimized for multi-stage builds, running stages in parallel and skipping stages if the output isn't used.
+BuildKit is an alternative build engine in Docker. It's heavily optimized for multi-stage builds, running stages in parallel and skipping stages if the output isn't used.
 
 Switch to BuildKit:
 
@@ -192,11 +192,13 @@ curl localhost:<port>
 
 ## Lab
 
-TODO - add test stage to whoami build
+TODO
 
 ___
 ## **EXTRA** Ports and command parameters
 
+<details>
+  <summary>Listening on different ports</summary>
 
 docker run -d -P --name whoami2 whoami -port 5000
 
@@ -209,6 +211,8 @@ curl localhost:port
 
 ```
 docker run -it --entrypoint sh whoami
+
+</details><br/>
 
 ___
 ## Cleanup

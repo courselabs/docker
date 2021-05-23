@@ -204,6 +204,9 @@ Now copy the `server-cert.pem` and `server-key.pem` files from the `/certs` fold
 ___
 ## **EXTRA** Configuring network resources
 
+<details>
+  <summary>Setting custom configuration</summary>
+
 Docker sets the IP address, DNS server and other network options for a container - and you can configure those too.
 
 There's a script we can mount in a container to print the network settings - save the path to the script in a variable:
@@ -246,6 +249,8 @@ docker run --network dockerfun --ip 10.10.0.100 -v ${scriptsPath}:/scripts alpin
 ```
 
 > IP addresses are set at random by Docker - you'll need to use a custom subnet range if Docker's IP address collides with your network or VPN.
+
+</details><br/>
 
 ___
 ## Cleanup

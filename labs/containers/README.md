@@ -215,6 +215,9 @@ In this lab you'll work with Java containers:
 ___
 ## **EXTRA** Multiple containers
 
+<details>
+  <summary>Publishing different ports</summary>
+
 Containers are isolated compute environments, you can run multiple containers from the same package - they all behave in the same way, but they're separate.
 
 Try running a container with a simple web server:
@@ -255,6 +258,8 @@ curl localhost:8081
 curl localhost:8082
 curl localhost:8083
 ```
+
+</details><br/>
 
 ___
 ## Cleanup
