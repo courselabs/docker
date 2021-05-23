@@ -59,8 +59,10 @@ Those containers ran a single command - when the process completed, the containe
   <summary>Not sure how?</summary>
 
 ```
+# print running containers:
 docker container ls
 
+# or use ps; the a flag shows all statuses
 docker ps -a
 ```
 
@@ -68,7 +70,7 @@ docker ps -a
 
 > You have two containers, both in the exited state. The container IDs match the hostname output.
 
-That container didn't do anything useful, but these one-off containers can be good for automation tasks.
+That container didn't do anything useful, but  one-off containers can be good for automation tasks, they can be packaged with all the tools and scripts they need.
 
 Try a container which generates a TLS cert you can use for dev environments:
 
@@ -121,7 +123,7 @@ exit
 
 Linux OS containers for Docker usually have the bare-minimum toolset installed.
 
-Ubuntu doesn't have curl installed, but the container runs as the root user so you have permissions to install curl:
+Ubuntu doesn't have curl installed, but the container runs as the root user so you have permissions to install anything you need:
 
 ```
 docker run -it ubuntu
@@ -160,12 +162,12 @@ docker run -it sixeyed/hollywood
 
 # Ctrl-C / Cmd-C
 
- exit
+exit
 ```
 
 ## Running a background container
 
-Interactive containers are great for testing command and exploring the container setup, but mostly you'll want to run _detached_ containers.
+Interactive containers are great for testing commands and exploring the container setup, but mostly you'll want to run _detached_ containers.
 
 These run in the background, so the container keeps running until the container process exits, or you stop the container.
 
@@ -200,18 +202,22 @@ curl localhost:<container-port>
 
 ## Lab
 
-We've run containers using Alpine Linux and Ubuntu, and also with Nginx installed. They're all public packages available on [Docker Hub]().
+We've run containers using Alpine Linux and Ubuntu, and also with Nginx installed. They're all public packages available on [Docker Hub](https://hub.docker.com).
 
-In this lab you have two tasks:
+In this lab you'll work with Java containers:
 
 - find a package on Docker Hub which you can use to run a Java app
-- run a Java container and confirm which version of Java is installed
-- now find a *small* image for Java 8
+- run a Java container and confirm which version of Java is installed using the `java -version` command
+- now find a *small* image for Java 8, with just the JRE runtime installed
 
 > Stuck? Try [hints](hints.md) or check the [solution](solution.md).
 
 ___
 ## **EXTRA** Multiple containers
+
+Containers are isolated compute environments, you can run multiple containers from the same package - they all behave in the same way, but they're separate.
+
+Try running a container with a simple web server:
 
 ```
 docker run -d -p 8080:80 sixeyed/whoami:21.04
@@ -219,7 +225,14 @@ docker run -d -p 8080:80 sixeyed/whoami:21.04
 curl localhost:8080
 ```
 
-> Repeat & fails
+The `-p` flag - lowercase p - publishes a specific port, so here Docker listens on port 8080 and sends traffic into the container on port 80.
+
+Ports are single-use resources, if you repeat the command you'll get a failure.
+
+📋 Run some more containers from the same image, using different ports.
+
+<details>
+  <summary>Not sure how?</summary>
 
 ```
 docker run -d -p 8081:80 sixeyed/whoami:21.04
@@ -227,20 +240,20 @@ docker run -d -p 8082:80 sixeyed/whoami:21.04
 docker run -d -p 8083:80 sixeyed/whoami:21.04
 ```
 
+</details><br/>
+
+Check the running containers: 
+
 ```
 docker ps
 ```
+
+They each listen on different ports, so you can see the response from each container:
 
 ```
 curl localhost:8081
 curl localhost:8082
 curl localhost:8083
-```
-
-```
-docker top <container-id>
-
-docker stats <container-id>
 ```
 
 ___
