@@ -4,7 +4,7 @@ Docker creates the virtual environment for a container. You can specify how part
 
 ## CLI Reference
 
-Container environments are static - the details are fixed for the life of the container. You set the environment in the `docker run` command:
+Container environments are static - the details are fixed for the life of the container. You configure the environment in the `docker run` command:
 
 - [Setting environment variables](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file)
 - [Mounting volumes](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only)
@@ -42,7 +42,7 @@ docker run java:8-jdk-alpine printenv
 
 > You'll see variables set by the OS and in the container package.
 
-📋 Run a new container - set an environment variable and print all the variables.
+📋 Run a new container - set your own environment variable and print all the variables.
 
 <details>
   <summary>Not sure how?</summary>
@@ -59,7 +59,7 @@ docker run -e DOCKERFUN=env alpine printenv
 You can add as many environment variables as you need, and you can also *override* default variables for the container:
 
 ```
-docker run -e DOCKERFUN=env -e LANG=C.UTF-16 java:8-jdk-alpine printenv
+docker run -e DOCKERFUN=env -e LANG=C.UTF-16 openjdk:8-jre-alpine printenv
 ```
 
 > This overrides the default language setting in the Java container.
@@ -94,6 +94,7 @@ Containers filesystems are virtual disks, put together by Docker. Every containe
   <summary>Not sure how?</summary>
 
 ```
+# alpine is the smallest variant but any will do:
 docker run -d --name nginx nginx:alpine
 ```
 
@@ -185,11 +186,11 @@ docker container inspect --format='Memory: {{.HostConfig.Memory}}b, CPU: {{.Host
 
 ## Lab
 
-We can run a container to generate TLS certificates, but the certs live inside the container filesystem.
+We can run a container to generate TLS certificates, but the certs are created inside the container filesystem.
 
 In this lab your job is to copy the TLS certificate and key from the container onto your local machine.
 
-Start by generating certs using a named container:
+Start by generating certs in a new named container:
 
 ```
 docker run --name tls kiamol/ch15-cert-generator
@@ -197,37 +198,54 @@ docker run --name tls kiamol/ch15-cert-generator
 # Ctrl-C to exit
 ```
 
-Now copy the `server-cert.pem` file and the `server-key.pem` file from the `/certs` folder in the container onto your machine.
+Now copy the `server-cert.pem` and `server-key.pem` files from the `/certs` folder in the container onto your machine.
 
+> Stuck? Try [hints](hints.md) or check the [solution](solution.md).
 ___
-## **EXTRA** Network resources
+## **EXTRA** Configuring network resources
 
-TODO - make an extra?
+Docker sets the IP address, DNS server and other network options for a container - and you can configure those too.
 
-$scriptsPath="${PWD}/labs/env/scripts"
+There's a script we can mount in a container to print the network settings - save the path to the script in a variable:
+
+```
+# on macOS/Linux:
 scriptsPath="${PWD}/labs/env/scripts"
+
+# OR with PowerShell:
+$scriptsPath="${PWD}/labs/env/scripts"
+```
+
+Now run a basic Alpine container to run that script:
 
 ```
 docker run -v ${scriptsPath}:/scripts alpine sh /scripts/print-network.sh
 ```
 
-> All set by Docker
+> These network settings are all built by Docker
 
-- hostname & dns
+📋 Repeat the run command with extra settings to specify a custom DNS server and hostname.
+
+<details>
+  <summary>Not sure how?</summary>
 
 ```
 docker run --dns 1.1.1.1 --hostname alpine1 -v ${scriptsPath}:/scripts alpine sh /scripts/print-network.sh
 ```
 
-> IP set by Docker
+</details><br/>
 
-- network & ip 
+> This is useful for apps which need a particular configuration.
+
+You can also set an IP address - but first you need to create a netwotrk with specific IP address range: 
 
 ```
 docker network create --subnet=10.10.0.0/16 dockerfun
 
 docker run --network dockerfun --ip 10.10.0.100 -v ${scriptsPath}:/scripts alpine sh /scripts/print-network.sh
 ```
+
+> IP addresses are set at random by Docker - you'll need to use a custom subnet range if Docker's IP address collides with your network or VPN.
 
 ___
 ## Cleanup
