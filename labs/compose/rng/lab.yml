@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  rng-api:
+    image: dockerfundamentals/rng-api:21.05
+    environment:
+      - Logging__LogLevel__Default=Debug
+    ports:
+      - "8087:80"
+    networks:
+      - app-net
+
+  rng-web:
+    image: dockerfundamentals/rng-web:21.05
+    environment:
+      - Logging__LogLevel__Default=Debug
+      - RngApi__Url=http://rng-api/rng
+    ports:
+      - "8088:80"
+    networks:
+      - app-net
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8089:80"
+    networks:
+      - app-net
+      - front-end
+
+networks:
+  app-net:
+  front-end:
