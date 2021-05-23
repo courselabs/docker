@@ -11,11 +11,6 @@ It's a desired-state approach, where you model your apps in YAML and the Compose
 - [Docker Compose v3 syntax](https://docs.docker.com/compose/compose-file/compose-file-v3/)
 
 
-<details>
-  <summary>Sample Docker Compose file</summary>
-
-</details><br/>
-
 ## Multi-container apps
 
 Docker can run any kind of app - the container image could be for a lightweight microservice or a legacy monolith. They all work in the same way, but containers are especially well suited to distributed applications, where each component runs in a separate container.
