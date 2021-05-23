@@ -6,9 +6,9 @@ Docker creates the virtual environment for a container. You can specify how part
 
 Container environments are static - the details are fixed for the life of the container. You set the environment in the `docker run` command:
 
-- [](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file)
-- [](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only)
-- [](https://docs.docker.com/config/containers/resource_constraints/)
+- [Setting environment variables](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file)
+- [Mounting volumes](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only)
+- [Applying resource constraints](https://docs.docker.com/config/containers/resource_constraints/)
 
 <details>
   <summary>CLI overview</summary>
