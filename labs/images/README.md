@@ -1,6 +1,6 @@
 # Building Container Images
 
-Images are the packages which containers run from. You'll build an image for each component of your application, and the image has all the pre-requisites installed and configured, ready to run.
+*Images* are the packages which containers run from. You'll build an image for each component of your application, and the image has all the pre-requisites installed and configured, ready to run.
 
 You can think of images as the filesystem for the container, plus some metadata which tells Docker which command to run when the container starts.
 
@@ -47,7 +47,7 @@ $env:DOCKER_BUILDKIT=0
 
 We'll build a really simple base image:
 
-- [base image Dockerfile](labs\images\base\Dockerfile)
+- [base image Dockerfile](/labs/images/base/Dockerfile)
 
 ```
 docker build -t dockerfun/base ./labs/images/base
@@ -110,7 +110,7 @@ The Dockerfile syntax is straightforward to learn:
 
 Here's a simple example which installs the curl tool:
 
-- [curl Dockerfile](labs\images\base\Dockerfile)
+- [curl Dockerfile](/labs/images/curl/Dockerfile)
 
 📋 Build an image called `dockerfun/curl` from the `labs/images/curl` Dockerfile.
 
@@ -140,7 +140,7 @@ docker run dockerfun/curl curl --head dockerfun.courselabs.co
 
 This updated Dockerfile makes a more usable image:
 
-- [curl Dockerfile - v2](labs\images\curl\Dockerfile.v2)
+- [curl Dockerfile - v2](/labs/images/curl/Dockerfile.v2)
 
 Build a v2 image from that Dockerfile:
 
@@ -176,7 +176,7 @@ docker image ls dockerfun/curl
 
 You don't typically use OS images as the base in your `FROM` image. You want to get as many of your app's pre-requisites already installed for you.
 
-You should use [official images](https://hub.docker.com/search?q=&type=image&image_filter=official&category=languages), which gets applications and runtimes which are maintained by the project teams.
+You should use [official images](https://hub.docker.com/search?q=&type=image&image_filter=official&category=languages), which are application and runtime images which are maintained by the project teams.
 
 This Dockerfile bundles some custom HTML content on top of the official Nginx image:
 
@@ -207,7 +207,7 @@ curl localhost:8090
 
 All the images you've built are only available on your machine so far.
 
-To share images you need to push them to a registry - like Docker Hub. The image name needs to include your username, which Docker Hub uses to identify ownership.
+To share images you need to push them to a *registry* - like Docker Hub. The image name needs to include your username, which Docker Hub uses to identify ownership.
 
 Start by saving your Docker ID in a variable:
 
@@ -261,6 +261,8 @@ Image names (properly called *references*) are built from three parts:
 Docker uses defaults for the registry and the tag. What are those defaults? What is the full reference for the image `kiamol/ch05-pi`?
 
 Not all official images are on Docker Hub. Microsoft uses its own image registry *MCR* at `mcr.microsoft.com`. What command would you use to pull version `5.0` of the `dotnet/runtime` image from MCR?
+
+> Stuck? Try [hints](hints.md) or check the [solution](solution.md).
 
 ___
 ## **EXTRA** Overriding image content
