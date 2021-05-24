@@ -37,7 +37,7 @@ Environment variables are key-value pairs set in the OS. Applications can read t
 ```
 docker run alpine printenv
 
-docker run java:8-jdk-alpine printenv
+docker run openjdk:8-jre-alpine printenv
 ```
 
 > You'll see variables set by the OS and in the container package.
