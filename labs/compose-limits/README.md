@@ -141,3 +141,14 @@ Compose removes the working web container to replace it, then finds it can't cre
 ## Lab
 
 This is just a thinking lab :) We've seen the limitations of Docker Compose - what practical problems would you have if you tried to use Compose in producion?
+
+> Stuck? Try [hints](hints.md) or check the [solution](solution.md).
+
+___
+## Cleanup
+
+Cleanup by removing all containers:
+
+```
+docker rm -f $(docker ps -aq)
+```

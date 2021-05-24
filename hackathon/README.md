@@ -2,7 +2,7 @@
 
 The hackathon is your chance to spend some decent time modelling and deploying a Kubernetes app on your own.
 
-You'll use all the key skills you've learned in the course, and:
+You'll use all the key skills you've learned, and:
 
 - 😣 you will get stuck
 - 💥 you will have errors and broken apps
@@ -35,14 +35,14 @@ The component names in the diagram are the DNS names the app expects to use.
 
 </details><br/>
 
-When you're done you should be able to browse to port 8080 on your cluster and see this:
+When you're done you should be able to browse to http://localhost:8080 and see this:
 
 ![](/img/widgetario-solution-1.png)
 
 <details>
   <summary>Solution</summary>
 
-If you didn't get part 1 finished, you can check out the sample solution from `hackathon/solution-part-1`. 
+If you didn't get part 1 finished, you can check out the sample solution from [hackathon/solution-part-1](/hackathon/solution-part-1/docker-compose.yml). 
 
 Deploy the sample solution and you can continue to part 2:
 
@@ -56,16 +56,15 @@ docker-compose -p hackathon -f hackathon/solution-part-1/docker-compose.yml up -
 
 Well done! Seems pretty straightforward when you look at the YAML, but now we need to go to the next stage and stop using the default configuraion in the Docker images.
 
+Here's what we want to do:
 
-Also the front-end team are experimenting with a new dark mode, and they want to quickly turn it on and off with a config setting.
+- in the products API component, set the `PRICE_FACTOR` configuration value to `1.5` to increase the sale prices
 
+- in the web application, set a feature flag to run the UI in dark mode, the setting is called `Widgetario__Theme`
 
+- the web app writes logs to a file; mount a volume so when the app writes files in `/logs` in the container, they actually get written inside the `hackathon` directory on your machine
 
-* products api price factor
-
-* .net logging
-
-* That feature flag for the UI can be set with an environment variable - `Widgetario__Theme` = `dark`.
+- increase the default logging level for the app to `Debug`. You'll need to do this by loading a JSON config file like [logging.json](hackathon/solution-part-2/config/web/logging.json) into the contaier filesystem at `/app/config`.
 
 <details>
   <summary>Hints</summary>
@@ -81,7 +80,7 @@ When you've rolled out your update, the UI will be updated but the products and 
 <details>
   <summary>Solution</summary>
 
-If you didn't get part 2 finished, you can check out the specs in the sample solution from `hackathon/solution-part-2`. 
+If you didn't get part 2 finished, you can check out the specs in the sample solution from [hackathon/solution-part-2](/hackathon/solution-part-2/docker-compose.yml). 
 
 Deploy the sample solution and you can continue to part 3:
 
@@ -93,17 +92,26 @@ docker-compose -p hackathon -f hackathon/solution-part-2/docker-compose.yml up -
 
 ## Part 3 - Reiliability & scale
 
+The app is looking good, but we want to see if Compose is the right tool to run in production.
 
-- dependency map
-- scale - 2x & 3x API
-- restart
-- resources 
+Add some reliability to the app:
 
+- the database should run in 1 container with 1 CPU core and 250MB memory
+
+- the products API can run in 2 containers, with 0.5 cores and 400MB memory
+
+- the stock API can run in 3 containers, with 0.25 cores and 200MB memory
+
+- the web app should run in 1 container with 0.5 cores and 300MB memory
+
+- all service should be set to restart if the containers exit
+
+- include a dependency map so the database container starts first, and the web container only starts when the API containers are running.
 
 <details>
   <summary>Hints</summary>
   
-- can't scale with published ports
+Remember ports are exclusive-use resources, so if you were publishing ports for components which need to scale then you can't do that.
 
 </details><br/>
 
@@ -112,7 +120,7 @@ The app won't look any different if you get your update right. If not, you'll ne
 <details>
   <summary>Solution</summary>
 
-If you didn't get part 3 finished, you can check out the specs in the sample solution from `hackathon/solution-part-3`. 
+If you didn't get part 3 finished, you can check out the specs in the sample solution from [hackathon/solution-part-3](/hackathon/solution-part-3/docker-compose.yml). 
 
 Deploy the sample solution:
 
@@ -121,6 +129,8 @@ docker-compose -p hackathon -f hackathon/solution-part-3/docker-compose.yml up -
 ```
 
 </details><br/>
+
+> It's still not perfect, because the app doesn't respond immediately after a new deployment. And we really need to be able to scale the web component...
 
 ___ 
 
