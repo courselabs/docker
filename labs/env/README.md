@@ -201,56 +201,6 @@ docker run --name tls kiamol/ch15-cert-generator
 Now copy the `server-cert.pem` and `server-key.pem` files from the `/certs` folder in the container onto your machine.
 
 > Stuck? Try [hints](hints.md) or check the [solution](solution.md).
-___
-## **EXTRA** Configuring network resources
-
-<details>
-  <summary>Setting custom configuration</summary>
-
-Docker sets the IP address, DNS server and other network options for a container - and you can configure those too.
-
-There's a script we can mount in a container to print the network settings - save the path to the script in a variable:
-
-```
-# on macOS/Linux:
-scriptsPath="${PWD}/labs/env/scripts"
-
-# OR with PowerShell:
-$scriptsPath="${PWD}/labs/env/scripts"
-```
-
-Now run a basic Alpine container to run that script:
-
-```
-docker run -v ${scriptsPath}:/scripts alpine sh /scripts/print-network.sh
-```
-
-> These network settings are all built by Docker
-
-📋 Repeat the run command with extra settings to specify a custom DNS server and hostname.
-
-<details>
-  <summary>Not sure how?</summary>
-
-```
-docker run --dns 1.1.1.1 --hostname alpine1 -v ${scriptsPath}:/scripts alpine sh /scripts/print-network.sh
-```
-
-</details><br/>
-
-> This is useful for apps which need a particular configuration.
-
-You can also set an IP address - but first you need to create a netwotrk with specific IP address range: 
-
-```
-docker network create --subnet=10.10.0.0/16 dockerfun
-
-docker run --network dockerfun --ip 10.10.0.100 -v ${scriptsPath}:/scripts alpine sh /scripts/print-network.sh
-```
-
-> IP addresses are set at random by Docker - you'll need to use a custom subnet range if Docker's IP address collides with your network or VPN.
-
-</details><br/>
 
 ___
 ## Cleanup

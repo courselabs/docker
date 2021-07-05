@@ -20,20 +20,20 @@ These are hands-on resources to help you learn Docker.
 ## Part 2 - Multi-Container Applications
 
 - [Docker Compose](labs/compose/README.md)
-- [Modelling apps with Compose](labs/compose-build)
-- [Building apps with Compose](labs/compose-build)
+- [Modelling apps with Compose](labs/compose-model/README.md)
+- [Building apps with Compose](labs/compose-build/README.md)
 - [Limitations of Compose](labs/compose-limits/README.md)
 
 ## Part 3 - Advanced Docker
 
 - [Multi-stage builds](labs/multi-stage/README.md)
-- [Container networking]() 
-- [Understanding orchestration]() # swarm
-- [CI/CD pipelines]() # jenkins 
+- [Container networking](labs/networking/README.md)
+- [Understanding orchestration](labs/orchestration/README.md)
+- [Kubernetes 101](labs/kubernetes/README.md)
 
 ## Part 4 - Real-World Docker
 
-- [Troubleshooting]() # cmd, port, mount
+- [Troubleshooting](labs/troubleshooting/README.md) # cmd, port, mount
 - [Hackathon!](hackathon/README.md)
 
 ### Credits

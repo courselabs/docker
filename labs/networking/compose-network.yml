@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  rng-api:
+    image: dockerfundamentals/rng-api:21.05
+    ports:
+      - "8089:80"
+    volumes: 
+      - ./scripts:/scripts
+    networks:
+      app-net: 
+        ipv4_address: 10.218.0.10
+
+  rng-web:
+    image: dockerfundamentals/rng-web:21.05
+    environment:
+      - Logging__LogLevel__Default=Debug
+      - RngApi__Url=http://10.218.0.10/rng
+    ports:
+      - "8090:80"
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    name: dockerfun-rng
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.218.0.0/16
+
