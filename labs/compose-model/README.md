@@ -52,6 +52,7 @@ docker-compose logs
 
 docker-compose -p rng-dev -f labs/compose-model/rng/core.yml -f labs/compose-model/rng/dev.yml up -d
 
+- you merge Compose files with multiple `-f` flags - the files to the right can override settings from files to the left
 
 localhost:8090, 0-50
 

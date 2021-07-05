@@ -1,17 +1,15 @@
 services:
   rng-api:
+    image: ${REPOSITORY:-dockerfundamentals}/rng-api:${RELEASE:-21.05}-${BUILD_NUMBER:-0}
     build:
-      context: .
-      dockerfile: docker/api/Dockerfile
       args:
         BUILD_VERSION: ${RELEASE:-21.05}.${BUILD_NUMBER:-0}
         BUILD_TAG: ${GITHUB_WORKFLOW:-local}-${BUILD_NUMBER:-0}-${GITHUB_REF:-local}
         COMMIT_SHA: ${GITHUB_SHA:-local}
 
   rng-web:
+    image: ${REPOSITORY:-dockerfundamentals}/rng-web:${RELEASE:-21.05}-${BUILD_NUMBER:-0}
     build:
-      context: .
-      dockerfile: docker/web/Dockerfile
       args:
         BUILD_VERSION: ${RELEASE:-21.05}.${BUILD_NUMBER:-0}
         BUILD_TAG: ${GITHUB_WORKFLOW:-local}-${BUILD_NUMBER:-0}-${GITHUB_REF:-local}
