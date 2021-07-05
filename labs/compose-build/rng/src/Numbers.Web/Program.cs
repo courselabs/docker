@@ -23,8 +23,8 @@ namespace Numbers.Web
                 .ConfigureAppConfiguration((builderContext, config) =>
                 {
                     config.AddJsonFile("config/logging.json", optional: true)
-                          .AddJsonFile("config/override.json", optional: true)
-                          .AddEnvironmentVariables();
+                          .AddEnvironmentVariables()
+                          .AddJsonFile("config/override.json", optional: true);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
