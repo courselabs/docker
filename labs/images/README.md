@@ -8,22 +8,19 @@ You can think of images as the filesystem for the container, plus some metadata 
 
 - [Dockerfile syntax](https://docs.docker.com/engine/reference/builder/)
 - [Image build command](https://docs.docker.com/engine/reference/commandline/image_build/)
-- [Pulling images](https://docs.docker.com/engine/reference/commandline/image_pull/)
-- [Pushing images](https://docs.docker.com/engine/reference/commandline/image_push/)
+
 
 <details>
   <summary>CLI overview</summary>
 
-You use the `image` commands to work with images. The most popular commands also have aliases:
+You use the `image` commands to work with images. The build command also has aliases:
 
 ```
 docker image --help
 
 docker build --help
 
-docker pull --help
-
-docker push --help
+docker history --help
 ```
 
 </details><br/>
@@ -43,11 +40,11 @@ export DOCKER_BUILDKIT=0
 $env:DOCKER_BUILDKIT=0
 ```
 
-> [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/) is a more efficient build engine; it produces the same images but the printed output is less clear, so it's better to start with the old engine.
+> [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/) is a more efficient build engine; it produces the same images but the printed output is less clear, so you'll understand the process better with the old engine.
 
 We'll build a really simple base image:
 
-- [base image Dockerfile](/labs/images/base/Dockerfile)
+- [base image Dockerfile](./base/Dockerfile)
 
 ```
 docker build -t dockerfun/base ./labs/images/base
@@ -110,7 +107,7 @@ The Dockerfile syntax is straightforward to learn:
 
 Here's a simple example which installs the curl tool:
 
-- [curl Dockerfile](/labs/images/curl/Dockerfile)
+- [curl Dockerfile](./curl/Dockerfile)
 
 📋 Build an image called `dockerfun/curl` from the `labs/images/curl` Dockerfile.
 
@@ -132,7 +129,7 @@ docker run dockerfun/curl
 # doesn't pass the URL to curl:
 docker run dockerfun/curl dockerfun.courselabs.co
 
-# to browse you need to specify the curl command:
+# to use curl you need to specify the curl command:
 docker run dockerfun/curl curl --head dockerfun.courselabs.co
 ```
 
@@ -140,7 +137,7 @@ docker run dockerfun/curl curl --head dockerfun.courselabs.co
 
 This updated Dockerfile makes a more usable image:
 
-- [curl Dockerfile - v2](/labs/images/curl/Dockerfile.v2)
+- [curl Dockerfile - v2](./curl/Dockerfile.v2)
 
 Build a v2 image from that Dockerfile:
 
@@ -180,7 +177,8 @@ You should use [official images](https://hub.docker.com/search?q=&type=image&ima
 
 This Dockerfile bundles some custom HTML content on top of the official Nginx image:
 
-- [web Dockerfile](/labs/images/web/Dockerfile)
+- [web Dockerfile](./web/Dockerfile)
+- [custom HTML page](./web/index.html)
 
 ```
 docker build -t dockerfun/web ./labs/images/web
@@ -194,6 +192,7 @@ docker build -t dockerfun/web ./labs/images/web
   <summary>Not sure how?</summary>
 
 ```
+# use any free local port, e.g. 8090:
 docker run -d -p 8090:80 dockerfun/web
 
 curl localhost:8090
@@ -203,106 +202,15 @@ curl localhost:8090
 
 > The container serves your HTML document, using the Nginx setup configured in the official image 
 
-## Tagging and pushing
-
-All the images you've built are only available on your machine so far.
-
-To share images you need to push them to a *registry* - like Docker Hub. The image name needs to include your username, which Docker Hub uses to identify ownership.
-
-Start by saving your Docker ID in a variable:
-
-```
-# on Linux or macOS:
-dockerId='<your-docker-hub-id>'
-
-# OR with PowerShell:
-$dockerId='<your-docker-hub-id>'
-```
-
-> This is your Hub username *not* your email address. For mine I use: `$dockerId='sixeyed'`
-
-Now you can *tag* one of your images with another name:
-
-```
-docker tag dockerfun/curl:v2 ${dockerId}/curl:21.05
-
-docker image ls '*/curl'
-```
-
-📋 Now push your `curl:21.05` image to Docker Hub.
-
-<details>
-  <summary>Not sure how?</summary>
-
-```
-# log in if you haven't already:
-docker login -u ${dockerId}
-
-# push your image:
-docker push ${dockerId}/curl:21.05
-```
-
-</details><br/>
-
-Docker Hub images are publicly available (you can create private images too). Run this command and browse to your image on Docker Hub:
-
-```
-echo "https://hub.docker.com/r/${dockerId}/curl/tags"
-```
-
 ## Lab
 
-Image names (properly called *references*) are built from three parts:
+Your turn to write a Dockerfile. 
 
-- the domain of the container registry
-- the repository name - which identifies the app and the owner
-- the tag - which can be anything but is usually used for versioning
+There's a simple Java app in this folder which has already been built into the file `labs\images\java\HelloWorld.class`.
 
-Docker uses defaults for the registry and the tag. What are those defaults? What is the full reference for the image `kiamol/ch05-pi`?
-
-Not all official images are on Docker Hub. Microsoft uses its own image registry *MCR* at `mcr.microsoft.com`. What command would you use to pull version `5.0` of the `dotnet/runtime` image from MCR?
+Build a Docker image which packages that app, and run a container to confirm it's working. The command your container needs to run is `java HelloWorld`.
 
 > Stuck? Try [hints](hints.md) or check the [solution](solution.md).
-
-___
-## **EXTRA** Overriding image content
-
-<details>
-  <summary>Environment variables and files</summary>
-
-Images are built on top of other images, and you can replace files and configuration settings in your Dockerfile.
-
-- [network-test\Dockerfile](docker-fundamentals\labs\images\network-test\Dockerfile)
-
-```
-docker build -t dockerfun/network-test ./labs/images/network-test
-```
-
-```
-docker run dockerfun/network-test
-```
-
-```
-docker run -e TEST_DOMAIN=k8sfun.courselabs.co dockerfun/network-test
-```
-
-```
-docker build -t dockerfun/network-test:override ./labs/images/network-test-override
-```
-
-```
-docker run dockerfun/network-test:override
-
-docker run -e TEST_DOMAIN=k8sfun.courselabs.co dockerfun/network-test:override
-```
-
-```
-docker image history dockerfun/network-test
-
-docker image history dockerfun/network-test:override
-```
-
-</details><br/>
 
 ___
 ## Cleanup

@@ -214,55 +214,6 @@ In this lab you'll work with Java containers:
 > Stuck? Try [hints](hints.md) or check the [solution](solution.md).
 
 ___
-## **EXTRA** Multiple containers
-
-<details>
-  <summary>Publishing different ports</summary>
-
-Containers are isolated compute environments, you can run multiple containers from the same package - they all behave in the same way, but they're separate.
-
-Try running a container with a simple web server:
-
-```
-docker run -d -p 8080:80 sixeyed/whoami:21.04
-
-curl localhost:8080
-```
-
-The `-p` flag - lowercase p - publishes a specific port, so here Docker listens on port 8080 and sends traffic into the container on port 80.
-
-Ports are single-use resources, if you repeat the command you'll get a failure.
-
-📋 Run some more containers from the same image, using different ports.
-
-<details>
-  <summary>Not sure how?</summary>
-
-```
-docker run -d -p 8081:80 sixeyed/whoami:21.04
-docker run -d -p 8082:80 sixeyed/whoami:21.04
-docker run -d -p 8083:80 sixeyed/whoami:21.04
-```
-
-</details><br/>
-
-Check the running containers: 
-
-```
-docker ps
-```
-
-They each listen on different ports, so you can see the response from each container:
-
-```
-curl localhost:8081
-curl localhost:8082
-curl localhost:8083
-```
-
-</details><br/>
-
-___
 ## Cleanup
 
 Cleanup by removing all containers:

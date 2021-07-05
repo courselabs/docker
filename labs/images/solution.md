@@ -1,25 +1,29 @@
 # Lab Solution
 
-The default registry is Docker Hub - using the domain `docker.io`, and the default image tag is `latest`.
+Here's a sample solution:
 
-So `kiamol/ch05-pi` is the short form of `docker.io/kiamol/ch05-pi:latest`:
+- [lab/Dockerfile](./lab/Dockerfile)
 
-```
-docker pull kiamol/ch05-pi
+It just creates a working directory called `/app` in the container filesystem, and copies in the Java class file.
 
-docker pull docker.io/kiamol/ch05-pi:latest
-```
-
-Check the image list and you'll only see one - these aren't aliases, they're just different froms of the same name:
+The class file and the Dockerfile are in different directories, so you need to use a context where Docker can access both files:
 
 ```
-docker image ls kiamol/ch05-pi
+- labs
+|- images   <- this is the context
+ |-- java   <- so Docker can get the class file from here
+ |-- lab    <- and the Dockerfile from here
+```
+Build the image using that context and specifying the path to the Dockerfile:
+
+```
+docker build -t java-hello-world -f labs\images\lab\Dockerfile labs\images
 ```
 
-> Be wary of using `latest` images - it's a confusing name because it might not be the latest version.
-
-For other registries you need to include the domain in the reference - so images on MCR need to be prefixed with `mcr.microsoft.com/`:
+Run a container from the image:
 
 ```
-docker pull mcr.microsoft.com/dotnet/runtime:5.0
+docker run java-hello-world
 ```
+
+> The output should say `Hello, World`
