@@ -1,6 +1,10 @@
 name: RNG App Docker Image Weekly Build
 on:
-  workflow_dispatch:
+  workflow_dispatch:   
+  push:
+    paths:
+      - ".github/workflows/rng-build.yml"
+      - "labs/compose-build/rng/**"
   schedule:
     - cron: "0 4 * * 1"
 
