@@ -6,7 +6,7 @@ Containers are a virtual computing environment which Docker creates. When you ru
 
 - [Docker command line reference](https://docs.docker.com/engine/reference/commandline/cli/)
 - [Container commands](https://docs.docker.com/engine/reference/commandline/container/)
-- [`docker run`](https://docs.docker.com/engine/reference/commandline/run/)
+- [docker run](https://docs.docker.com/engine/reference/commandline/run/)
 
 <details>
   <summary>CLI overview</summary>
@@ -38,7 +38,7 @@ docker run alpine hostname
 
 > You'll see a lot of output when you run this - Docker pulls the Alpine Linux container image so it can run locally, starts a container, runs the hostname command and prints the output.
 
-📋 Run another container to run the same hostname command.
+📋 Run another container with the same hostname command.
 
 <details>
   <summary>Not sure how?</summary>
@@ -70,15 +70,15 @@ docker ps -a
 
 > You have two containers, both in the exited state. The container IDs match the hostname output.
 
-That container didn't do anything useful, but  one-off containers can be good for automation tasks, they can be packaged with all the tools and scripts they need.
+Those containers didn't do anything useful, but  one-off containers can be good for automation tasks, they can be packaged with all the tools and scripts they need.
 
-Try a container which generates a TLS cert you can use for dev environments:
+Try a container which generates a security certiicate you can use for HTTPS in dev environments:
 
 ```
-docker run kiamol/ch15-cert-generator
+docker run -it kiamol/ch15-cert-generator
 ```
 
-> When you see the output `Certs generated`, you can exit the container by pressing Ctrl-C / Cmd-C.
+> The `-it` flag attaches your terminal, so you can send commands to the container. When you see the output `Certs generated`, exit the container by pressing Ctrl-C / Cmd-C.
 
 📋 The cert-generator container has exited; print out the logs from the process.
 
@@ -106,7 +106,7 @@ This is like connecting to a remote machine - any commands you run actually run 
 docker run -it alpine
 ```
 
-- the `-it` flag runs interactively, with the terminal attached
+- the `-it` flag means runs interactively, with the local terminal attached
 
 Now you're connected to the container, you can explore the environment:
 
@@ -160,8 +160,9 @@ Interactive containers can do fun things with the screen - this is useful to imp
 ```
 docker run -it sixeyed/hollywood
 
-# Ctrl-C / Cmd-C
+# Ctrl-C / Cmd-C to stop the process
 
+# and exit the container
 exit
 ```
 
@@ -171,7 +172,7 @@ Interactive containers are great for testing commands and exploring the containe
 
 These run in the background, so the container keeps running until the container process exits, or you stop the container.
 
-You'll use background containers for web servers, batch processes, databases etc.
+You'll use background containers for web servers, batch processes, databases message queues and any other server process.
 
 ```
 docker run -d -P --name nginx1 nginx:alpine

@@ -270,6 +270,10 @@ ___
 <details>
   <summary>Environment variables and files</summary>
 
+Images are built on top of other images, and you can replace files and configuration settings in your Dockerfile.
+
+- [network-test\Dockerfile](docker-fundamentals\labs\images\network-test\Dockerfile)
+
 ```
 docker build -t dockerfun/network-test ./labs/images/network-test
 ```
@@ -292,9 +296,11 @@ docker run dockerfun/network-test:override
 docker run -e TEST_DOMAIN=k8sfun.courselabs.co dockerfun/network-test:override
 ```
 
+```
 docker image history dockerfun/network-test
 
 docker image history dockerfun/network-test:override
+```
 
 </details><br/>
 
