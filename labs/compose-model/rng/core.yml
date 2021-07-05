@@ -1,0 +1,23 @@
+services:
+  rng-api:
+    image: dockerfundamentals/rng-api:21.05
+    secrets:
+      - source: dotnet-logging
+        target: /app/config/logging.json
+      - source: rng-api
+        target: /app/config/override.json
+    networks:
+      - app-net
+
+  rng-web:
+    image: dockerfundamentals/rng-web:21.05
+    secrets:
+      - source: dotnet-logging
+        target: /app/config/logging.json
+      - source: rng-web
+        target: /app/config/override.json
+    networks:
+      - app-net
+
+networks:
+  app-net:

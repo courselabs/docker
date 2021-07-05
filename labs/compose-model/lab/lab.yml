@@ -1,0 +1,16 @@
+services:
+  rng-api:
+    ports:
+      - "8389:80"
+
+  rng-web:
+    ports:
+      - "8390:80"
+
+secrets:
+  dotnet-logging:
+    file: ./config/dev/logging.json
+  rng-api:
+    file: ./config/dev/api/override.json
+  rng-web:
+    file: ./config/dev/web/override.json

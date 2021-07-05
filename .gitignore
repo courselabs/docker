@@ -1,2 +1,4 @@
 *.pem
 hackathon/**/logs/web/app.log
+labs/compose-model/rng/lab.yml
+labs/compose-model/.env
