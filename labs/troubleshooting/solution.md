@@ -9,6 +9,7 @@ http://localhost:8090
 ## Validation failures
 
 - network name
+- not enough CPUs
 
 ## Startup failures
 
