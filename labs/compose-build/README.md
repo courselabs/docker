@@ -1,18 +1,40 @@
 # Building Apps with Compose
 
-Compose can also record build-time details, so you can build multiple container images using one Docker Compose command. And you can split your Compose spec across multiple files to make them easy to manage, and merge them together at runtime.
+Docker Compose models can include build-time details, so you can build multiple container images using one Docker Compose command. Using override files lets you customize the image references and set labels to track the image back to the source code.
 
 ## Reference
 
 - [Compose build spec](https://docs.docker.com/compose/compose-file/compose-file-v3/#build)
 
-- env in compose files (image tag)
+- [Using environment variables in Compose files](https://docs.docker.com/compose/environment-variables/) 
+
+<details>
+  <summary>CLI overview</summary>
+
+Docker Compose has commands to work with images:
+
+```
+docker-compose build --help
+
+docker-compose push --help
+```
+
+> These support multiple YAML files in the same way as the other commands.
+
+</details><br/>
 
 ## Building with Compose
 
-- docker-compose.yml
+All the source code for the random number app we've been usingis in the `rng` folder, along with the Dockerfile and a Compose file: 
 
-All the source code for the random number app is in the `rng` folder, along with the Compose files. Switch to that folder and build the images:
+- [rng\docker-compose.yml](.\rng\docker-compose.yml) - includes the context and Dockerfile paths
+
+All paths in Compose are relative to the location of the Compose file. 
+
+📋 Switch to the `rng` folder and build the images.
+
+<details>
+  <summary>Not sure how?</summary>
 
 ```
 cd labs/compose-build/rng
@@ -20,24 +42,26 @@ cd labs/compose-build/rng
 docker-compose build 
 ```
 
-- `build` tells Compose to build all the images with a `build` section in the Compose file
+</details><br/>
 
-> You'll see the output from your configured build engine - you can use the original or BuildKit for this lab
+> The build command builds all the images with a `build` section in the spec. You'll see the output from your configured build engine - you can use the original or BuildKit for this lab
 
 These images have the tag `21.05-local`. You can use the same Compose file to run the app from your local images.
 
-📋 Run the app in the local configuration.
+📋 Run the app using your new images and test it works.
 
 <details>
   <summary>Not sure how?</summary>
 
 ```
 docker-compose up -d
+
+# try the app at http://localhost:8090
 ```
 
 </details><br/>
 
-http://localhost:8090
+> The Compose spec has all the details to run and build the app. 
 
 ## Build arguments and image labels
 
@@ -49,40 +73,63 @@ A single Compose file to build and run your app is very appealing, but run and b
 
 And with some additional config you can add some useful auditing to your images:
 
-- the [rng API Dockerfile](./rng/docker/api/Dockerfile) uses `ARG` instructions - which are values you can set as build arguments - to add metadata to the image, using labels to record the build version and Git commit ID
+- the [rng API Dockerfile](./rng/docker/api/Dockerfile) uses `ARG` instructions - which are values you can set as build arguments - to add metadata to the image, using labels to record the build version and Git commit ID 
 
-- [args.yml](./rng/args.yml) sets default values for the build arguments, which can be overridden by environment variables on the machine running the build.
+- _we haven't covered all the details of how this Dockerfile works - we'll do that in [multi-stage builds](../multi-stage/README.md)_
 
-Build with audit details by combining all the Compose files, then inspect the new API image to see the labels.
+- [args.yml](./rng/args.yml) overrides the image name and sets default values for the build arguments. All the `${VARIABLES}`  can be overridden by environment variables on the machine running the build.
+
+📋 Join all those files to build the app, then inspect the labels for the API image.
+
+<details>
+  <summary>Not sure how?</summary>
 
 ```
+# join all the files to get the full build spec:
 docker-compose -f core.yml -f build.yml -f args.yml build
 
-docker image inspect dockerfundamentals/rng-api:21.05-0
+# this output shows label values:
+docker image inspect --format '{{.Config.Labels}}' dockerfundamentals/rng-api:21.05-0
 ```
 
+</details><br/>
 
-env settings on machine used in image tag; try changing:
+> The default values from the Compose file set the label values.
+
+You can set environment variables on your machine which will override the defaults in the Compose files:
 
 ```
-# linux
+# macOS or Linux:
 export RELEASE=2021.07
 export BUILD_NUMBER=121
 
-# windows
+# OR with PowerShell:
 $env:RELEASE='2021.07'
 $env:BUILD_NUMBER='121'
 ```
 
-> repeat build; args in Dockerfile RUN so breaks cache on change
+📋 Repeat the build. What are the new image tags? And the label values in the API image?
 
-check tags
+<details>
+  <summary>Not sure how?</summary>
 
-docker image ls dockerfundamentals/rng-api
+```
+# it's the same set of files:
+docker-compose -f core.yml -f build.yml -f args.yml build
 
-docker image inspect dockerfundamentals/rng-api:2-2021.07-121
+# the tag is 2021.07-121
 
-## Docker Compose for CI Builds
+# show the new label values:
+docker image inspect --format '{{.Config.Labels}}' dockerfundamentals/rng-api:2021.07-121
+```
+
+</details><br/>
+
+> Different build argument values break the cache for this build, so you'll see the Dockerfile instructions being run again.
+
+Those labels values aren't very useful when you build locally - but in a Continuous Integration build, they would be set with the correct values by the build service.
+
+## Docker Compose for CI builds
 
 Compose is great for running lots of non-production environments on a single machine, but if you're not planning to use it for that the build feature is perfect for Continuous Integration. You can easily build your apps in Jenkins or GitHub Actions just by running `docker-compose build`.
 
@@ -100,9 +147,10 @@ https://github.com/courselabs/docker-fundamentals/actions/workflows/rng-build.ym
   <summary>Not sure how?</summary>
 
 ```
-docker pull dockerfundamentals/rng-api:21.05-14
+# the build version is appended to the image tag, e.g for build 16:
+docker pull dockerfundamentals/rng-api:21.05-16
 
-docker image inspect dockerfundamentals/rng-api:21.05-14
+docker image inspect dockerfundamentals/rng-api:21.05-16
 ```
 
 </details><br/>
@@ -111,12 +159,14 @@ You'll see the actual build details stored in the image labels, something like t
 
 ```
 "Labels": {
-  "build_tag": "RNG App Docker Image Weekly Build-14-refs/heads/main",
-  "commit_sha": "2a5f404fd4de49e91bec19d38c02cb8ba218d295"
+  "build_tag": "RNG App Docker Image Weekly Build-16-refs/heads/main",
+  "commit_sha": "f15714e90b4c242d71cf3bf618c262a427fc115d"
 }
 ```
 
 > This is from the same Dockerfiles and Compose files you use for a local build.
+
+Image labels help you track back from a running container to the build pipeline which created it, and the exact version of the source code.
 
 ## Lab
 
@@ -124,7 +174,7 @@ Look closely at the GitHub workflow and you'll see it runs two sets of builds an
 
 What is the difference when you use the extra Compose file and why does the workflow run this second build?
 
-Pull the API image from the tag in the second build and check if it's the same as the tag `21.05-14`.
+Pull the API image from the tag in the second build and check if it's the same as the tag `21.05-16`.
 
 > Stuck? Try [hints](hints.md) or check the [solution](solution.md).
 

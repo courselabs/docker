@@ -2,11 +2,11 @@
 
 The second part of the GitHub build uses the `latest` Docker Compose file:
 
-- [latest.yml](./rng/latest.yml) uses a different image tag, with the `RELEASE` environment variable but not the `BUILD_NUMBER` variable the main Compose file uses
+- [release.yml](./rng/release.yml) uses different image tags, with the `RELEASE` environment variable but not the `BUILD_NUMBER` variable the main Compose file uses
 
 When you merge in the latest file it will build images with the tag `21.05`, which is the version for this release of the app.
 
-Consumers can use `21.05` to get the current build for this release, or `21.05-14` to get a specific build:
+Consumers can use `21.05` to get the current build for this release, or `21.05-16` to get a specific build:
 
 ```
 docker pull dockerfundamentals/rng-api:21.05
