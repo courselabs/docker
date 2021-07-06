@@ -2,7 +2,28 @@
 
 # Set up Kubernetes
 
-Follow the instructions from the [Kubernetes Fundamentals setup](https://k8sfun.courselabs.co/setup/).
+Install [k3d](https://k3d.io/#installation):
+
+```
+# Mac
+brew install k3d
+
+# Windows
+choco install k3d
+
+# Linux
+curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
+```
+
+Create a cluster:
+
+```
+k3d cluster create dockerfun -p "30000:30000@server[0]"
+```
+
+```
+kubectl get nodes
+```
 
 # Simple Pod
 
@@ -12,15 +33,23 @@ kubectl apply -f labs\kubernetes\pods\sleep.yaml
 
 kubectl get pods
 
+> ContainerCreating -> Running
+
 kubectl describe po sleep
 
-kubectl exec sleep -- sh hostname
+> container id
 
-docker ps
+kubectl exec sleep -- hostname
 
-docker rm -f <container-id>
+kubectl exec sleep -- kill 1
 
 kubectl get pods
+
+> Restart count
+
+kubectl describe po sleep
+
+> New container ID 
 
 
 ## Services
@@ -33,7 +62,11 @@ kubectl get services
 
 kubectl describe svc whoami-np
 
-curl http://localhost:30080
+> IP address; endpoints `<none>`
+
+curl http://localhost:30000
+
+kubectl get pods -l app=whoami
 
 
 ## Services over Pods
@@ -42,9 +75,17 @@ curl http://localhost:30080
 
 kubectl apply -f labs\kubernetes\pods\
 
+> sleep unchanged; whoami created
+
+kubectl get pods -l app=whoami -o wide
+
 kubectl get endpoints whoami-np
 
-curl http://localhost:30080
+> Pod IP in endpoint list
 
-docker ps
+curl http://localhost:30000
 
+
+## Cleanup
+
+k3d cluster delete dockerfun
