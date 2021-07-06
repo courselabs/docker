@@ -22,7 +22,7 @@ Widgetario is a company which sells gadgets. They want to run their public web a
 
 They've made a start - all the components are packaged into container images and published on Docker Hub. Your job is to get it running in Docker Compose so they can see how it works in a test environment.
 
-Use this architecture diagram as the basis to model your YAML. It has the Docker image tags and the scale for each component:
+Use this architecture diagram as the basis to model your YAML. It has the Docker image tags for each component and the port(s) to publish:
 
 ![](/img/widgetario-architecture.png)
 
@@ -31,7 +31,7 @@ It's not much to go on, but it has all the information you need for the first st
 <details>
   <summary>Hints</summary>
 
-The component names in the diagram are the DNS names the app expects to use.
+The component names in the diagram are the DNS names the app expects to use. It can take 30 seconds or so for all the components to be ready, so you may have to refresh a few times before you see the website.
 
 </details><br/>
 
@@ -54,7 +54,7 @@ docker-compose -p hackathon -f hackathon/solution-part-1/docker-compose.yml up -
 
 ## Part 2 - Configuration
 
-Well done! Seems pretty straightforward when you look at the YAML, but now we need to go to the next stage and stop using the default configuraion in the Docker images.
+Well done! Seems pretty straightforward when you look at the YAML, but now we need to go to the next stage and stop using the default configuration in the Docker images.
 
 Here's what we want to do:
 
@@ -64,7 +64,7 @@ Here's what we want to do:
 
 - the web app writes logs to a file; mount a volume so when the app writes files in `/logs` in the container, they actually get written inside the `hackathon` directory on your machine
 
-- increase the default logging level for the app to `Debug`. You'll need to do this by loading a JSON config file like [logging.json](hackathon/solution-part-2/config/web/logging.json) into the contaier filesystem at `/app/config`.
+- increase the default logging level for the web app to `Debug`. You'll need to do this by loading a JSON config file like [logging.json](hackathon/solution-part-2/config/web/logging.json) into the contaier filesystem at `/app/config`.
 
 <details>
   <summary>Hints</summary>
@@ -104,7 +104,7 @@ Add some reliability to the app:
 
 - the web app should run in 1 container with 0.5 cores and 300MB memory
 
-- all service should be set to restart if the containers exit
+- all services should be set to restart if the containers exit
 
 - include a dependency map so the database container starts first, and the web container only starts when the API containers are running.
 

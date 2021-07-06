@@ -9,7 +9,7 @@ The main limitation of Compose is that it runs on a single server. There's no wa
 - [Compose in production](https://docs.docker.com/compose/production/)
 - [Understanding container orchestration - YouTube](https://youtu.be/F7rORInGvc4)
 
-## Reliability
+## Adding reliability
 
 Applications fail and that can cause containers to exit. In production you would want your platform to see the container has exited and start a replacement, but that's not the default behaviour in Compose.
 
@@ -76,7 +76,7 @@ docker ps -a
 
 The restart flag also starts containers when the Docker engine starts. You can restart Docker Desktop and your app will come back online, but it will be unavailable while Docker is starting.
 
-## Load
+## Scaling for load
 
 You can increase reliability and the amount of load your apps can handle by running multiple containers:
 
@@ -115,7 +115,7 @@ docker exec -it rng_rng-web_1 nslookup rng-api
 
 > If you repeat that call you'll see the order of the addresses is randomized, which helps spread the load if the client just uses the first address in the list.
 
-## Resources
+## Allocating compute resources
 
 The final limitation with Compose is that you can only use the resources available on one server. If you have a power-hungry app you might not be able to run it at all:
 
