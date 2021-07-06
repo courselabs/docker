@@ -13,7 +13,7 @@ The main limitation of Compose is that it runs on a single server. There's no wa
 
 Applications fail and that can cause containers to exit. In production you would want your platform to see the container has exited and start a replacement, but that's not the default behaviour in Compose.
 
-- [rng/v1.yml](/labs/compose-limits/rng/v1.yml) is the same random number app, but with a configuration which causes the API to fail after 3 calls
+- [rng/v1.yml](./rng/v1.yml) is the same random number app we've used already, but with a configuration which causes the API to fail after 3 calls
 
 📋 Run the app from the file `labs/compose-limits/rng/v1.yml`.
 
@@ -26,9 +26,9 @@ docker-compose -f labs/compose-limits/rng/v1.yml up -d
 
 </details><br/>
 
-You'll see the two containers start. Browse to the app at http://localhost:8088 - click the button 3 times and you'll get a random number. After that it fails.
+You'll see the two containers start. Browse to the app at http://localhost:8088 - click the button 3 times and you'll get a random number. After that it fails and you'll see the `RNG service unavailable!` error message.
 
-📋 Check the logs and see what's happening with the containers.
+📋 Look at the API logs and then check the status of the containers.
 
 <details>
   <summary>Not sure how?</summary>
@@ -49,9 +49,11 @@ You can restart a stopped container manually:
 docker start rng_rng-api_1
 ```
 
+> Now the app will work again, but only for three calls, then the API container will exit and you'll need to start it again.
+
 You can configure containers to automatically restart if they exit:
 
-- [rng/v2.yml](/labs/compose-limits/rng/v2.yml) adds the `restart: always` setting to both services, so the containers restart if the application process exits.
+- [rng/v2.yml](./rng/v2.yml) adds the `restart: always` setting to both services, so the containers restart if the application process exits.
 
 📋 Update your deployment to the spec in `labs/compose-limits/rng/v2.yml`.
 
@@ -66,9 +68,10 @@ docker-compose -f labs/compose-limits/rng/v2.yml up -d
 
 > Both containers are recreated. The old web container was running fine but it didn't match the new spec.
 
-Now when you use the app it will still fail after 3 numbers, but then Docker restarts the API container. The app won't work while the container starts, but then it will work again:
+Now when you use the app it will still fail after 3 numbers, but then Docker restarts the API container. The app won't work while the container starts up, but then it will work again:
 
 ```
+# try the app until it fails, then check the container status:
 docker ps -a
 ```
 
@@ -76,11 +79,11 @@ docker ps -a
 
 The restart flag also starts containers when the Docker engine starts. You can restart Docker Desktop and your app will come back online, but it will be unavailable while Docker is starting.
 
-## Scaling for load
+## Running at scale
 
 You can increase reliability and the amount of load your apps can handle by running multiple containers:
 
-- [rng/v3.yml](/labs/compose-limits/rng/v3.yml) adds the `scale` setting to both services, so Compose will try to run 3 API containers and 2 web containers.
+- [rng/v3.yml](./rng/v3.yml) adds the `scale` setting to both services, so Compose will try to run 3 API containers and 2 web containers.
 
 Deploy the update and check the output from the CLI:
 
@@ -103,7 +106,7 @@ docker ps -a
 
 </details><br/>
 
-> You'll see multiple API containers running, and an additional web container which is stuck in the `Created` status. The app is working, and you can get a lot more numbers before it fails.
+> You'll see multiple API containers running, and an additional web container which is stuck in the `Created` status. The app is working, and you can get a lot more numbers before it fails while API containers restart.
 
 There are multiple API containers, so Docker adds all their IP addresses to the DNS response. When the web container makes a call to the API domain name, it gets load-balanced between the API containers.
 
@@ -119,7 +122,7 @@ docker exec -it rng_rng-web_1 nslookup rng-api
 
 The final limitation with Compose is that you can only use the resources available on one server. If you have a power-hungry app you might not be able to run it at all:
 
-- [rng/v4.yml](/labs/compose-limits/rng/v4.yml) adds CPU and memory allocations to the containers. It requests 4 CPU cores and 8GB memory for each API container and 32 cores and 64GB memory for the web container.
+- [rng/v4.yml](./rng/v4.yml) adds CPU and memory allocations to the containers. It requests 4 CPU cores and 8GB memory for each API container and 32 cores and 64GB memory for the web container.
 
 📋 Deploy the v4 update and check the containers. Is the app working?
 

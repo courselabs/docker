@@ -4,7 +4,7 @@ Think about the ongoing lifecycle of your apps:
 
 - servers need to be taken offline for maintenance
 
-- operating system updates need to be deployed for yourcontainer images
+- operating system updates need to be deployed for your container images
 
 - application config changes over time
 

@@ -3,6 +3,7 @@
 Running the app with a custom port just needs you to pass the arguments to the application:
 
 ```
+# run the app listening on port 5000 inside the container:
 docker run -d -P --name whoami2 whoami -port 5000
 ```
 
@@ -32,7 +33,7 @@ docker run -d -p 8050:5000 --name whoami3 whoami -port 5000
 curl localhost:8050
 ```
 
-Or if you want Docker to set a random host port, just specify the target port:
+Or if you want Docker to set a random host port, specify only the target port:
 
 ```
 docker run -d -p :5000 --name whoami4 whoami -port 5000

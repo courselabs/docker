@@ -31,9 +31,9 @@ $env:DOCKER_BUILDKIT=0
 export DOCKER_BUILDKIT=0
 ```
 
-Here's a [simple multi-stage Dockerfile](/labs/multi-stage/simple/Dockerfile):
+Here's a [simple multi-stage Dockerfile](./simple/Dockerfile):
 
-- the `base` stage uses Alpine and simulates adding some packages
+- the `base` stage uses Alpine and simulates adding some dependencies
 - the `build` stage builds on the base and simulates an app build
 - the `test` stage starts from the build output and simulates automated testing
 - the final stage starts from base and copies in the build output
@@ -44,6 +44,7 @@ Here's a [simple multi-stage Dockerfile](/labs/multi-stage/simple/Dockerfile):
   <summary>Not sure how?</summary>
 
 ```
+# just a normal build:
 docker build -t simple ./labs/multi-stage/simple/
 ```
 
@@ -63,12 +64,14 @@ docker run simple
 
 BuildKit is an alternative build engine in Docker. It's heavily optimized for multi-stage builds, running stages in parallel and skipping stages if the output isn't used.
 
-Switch to BuildKit:
+Switch to BuildKit by setting an environment variable:
 
 ```
-$env:DOCKER_BUILDKIT=1
-
+# on macOS or Linux:
 export DOCKER_BUILDKIT=1
+
+# OR with PowerShell: 
+$env:DOCKER_BUILDKIT=1
 ```
 
 Now repeat the build for the simple Dockerfile - this time Docker will use BuildKit:
@@ -94,7 +97,7 @@ docker image ls simple
 
 </details><br/>
 
-BuildKit skips the test stage because none of the output is used in later stages. You can explicitly build an image up to a specific stage:
+BuildKit skips the test stage because none of the output is used in later stages. You can explicitly build an image up to a specific stage with the `target` flag:
 
 ```
 docker build -t simple:test --target test ./labs/multi-stage/simple/
@@ -124,21 +127,21 @@ docker run simple:test cat /build.txt
 
 ## Simple Go application
 
-Real multi-stage builds use an SDK image to compile the app in the build stage and a smaller runtime image (with no build tools) to package the compiled app.
+Real multi-stage builds use an SDK (Software Development Kit) image to compile the app in the build stage and a smaller runtime image (with no build tools) to package the compiled app.
 
 The images you use and the commands you run are different for each language, but you'll find [official images on Docker Hub for all the major platforms](https://hub.docker.com/search?q=&type=image&image_filter=official&category=languages), including:
 
-- [maven]() and [gradle](https://hub.docker.com/_/gradle) to build Java apps - using [openjdk]() for the runtime image
+- [maven](https://hub.docker.com/_/maven) and [gradle](https://hub.docker.com/_/gradle) to build Java apps - using [openjdk]() for the runtime image
 - [python](https://hub.docker.com/_/python) - has Pip installed for dependencies
-- [node]() for Node.js apps - this has NPM so you can install packages in the build stage
-- [golang]() for Go apps - they don't need a runtime so the final image can be [scratch]()
-- [dotnet/sdk] for .NET Core/5 apps, using [dotnet/runtime]() or [dotnet/aspnet]() for the final app image
+- [node](https://hub.docker.com/_/node) for Node.js apps - this has NPM so you can install packages in the build stage
+- [golang](https://hub.docker.com/_/golang) for Go apps - they don't need a runtime so the final image can start from [scratch](https://hub.docker.com/_/scratch)
+- [dotnet/sdk](https://hub.docker.com/_/microsoft-dotnet-sdk/) for .NET Core/5 apps, using [dotnet/runtime](https://hub.docker.com/_/microsoft-dotnet-runtime/) or [dotnet/aspnet](https://hub.docker.com/_/microsoft-dotnet-aspnet/) for the final app image
 
-We won't cover different languages in detail. The [whoami Dockerfile](/labs/multi-stage/whoami/Dockerfile) shows how the pattern works, using a Go application:
+We won't cover different languages in detail. The [whoami Dockerfile](./whoami/Dockerfile) shows how the pattern works, using a Go application:
 
 - the builder stages starts from the Go SDK image
-- it installs the packages the app needs for building
-- then it copies the library list and runs `go mod download` to install the dependencies
+- it installs the OS packages needed to build the app
+- then it copies the library list and runs `go mod download` to install the app's dependencies
 - next it copies the source code and compiles the app
 - the final app image sets up the container environment
 - then it copies in the compiled output from the builder
@@ -180,7 +183,7 @@ docker run -d -P --name whoami1 whoami
 docker port whoami1
 ```
 
-> The `EXPOSE` instruction tells Docker the target port for the container.
+> The `EXPOSE` instruction tells Docker the target port for the container; when you use the `-P` flag Docker publishes all exposed ports.
 
 Now you can use the app:
 
@@ -196,7 +199,7 @@ Apps need special Linux permissions to listen on the standard HTTP ports - even 
 
 The whoami app supports an option to configure the port it listens on, so you can use a non-standard port and potentially run with tighter security.
 
-Your goal for this lab is to run the whoami app in a container - using the `-port` argument to listen on a specific port. What happens when you run a container with the `-P` (`--publish-all`) option? Does Docker map the new port correctly?
+Your goal for this lab is to run the whoami app in a container - using the `-port` application argument to listen on a specific port. What happens when you run a container with the `-P` (`--publish-all`) option? Does Docker map the new port correctly?
 
 What do you need to do to run a working container?
 

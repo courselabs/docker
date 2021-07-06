@@ -1,6 +1,6 @@
 # Lab Hints
 
-The [Dockerfile](/labs/multi-stage/whoami/Dockerfile) for the app uses the `ENTRYPOINT` instruction to start the app, so any arguments you pass to the `docker run` command get passed onto the container.
+The [Dockerfile](./whoami/Dockerfile) for the app uses the `ENTRYPOINT` instruction to start the app, so any arguments you pass to the `docker run` command get passed onto the container.
 
 In the Dockerfile the `EXPOSE` command tells Docker which ports the app expects to listen to. This is built into the image as metadata, it's not linked to the ports the app actually listens on. 
 
