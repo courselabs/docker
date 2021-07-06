@@ -1,0 +1,50 @@
+version: "3.7"
+
+services:
+  rng-api:
+    image: dockerfundamentals/rng-api:21.05
+    environment:
+      - Rng__FailAfter__Enabled=true
+      - Rng__FailAfter__CallCount=10
+      - Rng__FailAfter__Action=Exit
+    configs:
+      - source: rng-logging
+        target: /app/config/logging.json
+    secrets:
+      - source: rng-api
+        target: /app/config/override.json
+    ports:
+      - "8089:80"
+    networks:
+      - app-net
+    deploy:
+      replicas: 4
+
+  rng-web:
+    image: dockerfundamentals/rng-web:21.05
+    configs:
+      - source: rng-logging
+        target: /app/config/logging.json
+    secrets:
+      - source: rng-web
+        target: /app/config/override.json
+    ports:
+      - "8090:80"
+    networks:
+      - app-net
+    deploy:
+      replicas: 2
+
+networks:
+  app-net:
+
+configs:
+  rng-logging:
+    external: true
+
+secrets:
+  rng-api:
+    external: true
+
+  rng-web:
+    external: true

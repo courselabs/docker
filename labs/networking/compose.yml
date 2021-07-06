@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   rng-api:
     image: dockerfundamentals/rng-api:21.05
