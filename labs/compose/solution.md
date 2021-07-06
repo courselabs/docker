@@ -1,13 +1,17 @@
 # Lab Solution
 
-The sample solution [rng/lab.yaml](./rng/lab.yml) adds:
+The sample solution [lab/compose.yaml](./lab/compose.yml) adds:
 
 - a network called `front-end` with no options, so it will be created with the Docker defaults
 - a service called `nginx` which uses the Nginx image and connects to the `front-end` and `app-net` networks.
 
-Deploy the update:
+Compose uses the directory name of the YAML file to identify the application - so to update the app, the Compose file needs to be copied to the `rng` folder.
+
+Copy the Compose file and deploy the update:
 
 ```
+cp ./labs/compose/lab/compose.yml ./labs/compose/rng/lab.yml
+
 docker-compose -f ./labs/compose/rng/lab.yml up -d
 ```
 
@@ -19,7 +23,7 @@ Inspect the new container to show the network details:
 docker inspect rng_nginx_1
 ```
 
-> You'll see it has two IP addresses, one from each network - like a machine with two network cards.
+> You'll see it has two IP addresses in the network section at the end of the output. This is one IP from each network - like a machine with two network cards.
 
 Test connectivity from the Nginx container to the web container:
 

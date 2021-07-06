@@ -2,7 +2,7 @@
 
 Docker Compose is a specification for describing apps which run in containers, and a command-line tool which takes those specs and runs them in Docker.
 
-It's a desired-state approach, where you model your apps in YAML and the Compose command line creates or replaces components to get to your desired state.
+It's a _desired-state_ approach, where you model your apps in YAML and the Compose command line creates or replaces components to get to your desired state.
 
 ## Reference
 
@@ -30,7 +30,7 @@ docker compose --help
 docker compose up --help
 ```
 
-> This is new functionality and it's not 100% compatible yet. For this lab you should be able to use either, but if you have any issues stick with `docker-compose`.
+> This is new functionality and it's not 100% compatible with the original Compose CLI. For this lab you should be able to use either, but if you have any issues stick with `docker-compose`.
 
 </details><br/>
 
@@ -45,7 +45,7 @@ Try running a sample app - this is the web component for a random number generat
 docker run -d -p 8088:80 --name rng-web dockerfundamentals/rng-web:21.05
 ```
 
-Browse to http://localhost:8088 and try to get a random number. It will fail.
+Browse to http://localhost:8088 and try to get a random number. After a few seconds it will fail and show the error message `RNG service unavailable!`.
 
 📋 Check the application logs to see what's happening.
 
@@ -60,11 +60,11 @@ docker logs rng-web
 
 > The web app is just the front-end, it's trying to find a backend API service at http://numbers-api/rng - but there's no such service running.
 
-You could run another container for the API, but you'd need to know the name of the image, the ports to use, and the network setup for the containers to talk to each other.
+You could start an API container with `docker run`, but you'd need to know the name of the image, the ports to use, and the network setup for the containers to talk to each other.
 
-Instead you can use Docker Compose to model the whole app in one file.
+Instead you can use Docker Compose to model both containers.
 
-## Compose App Definition
+## Compose app definition
 
 Docker Compose can define the services of your app - which run in containers - and the networks that join the containers together.
 
@@ -106,27 +106,25 @@ Compose is more useful with more components. [rng/v1.yml](./rng/v1.yml) defines 
 - both services are set to connect to the same container network
 - the network is defined but it has no special options set.
 
-Run the app using detached containers:
-
-```
-docker-compose -f ./labs/compose/rng/v1.yml up -d
-```
-
-📋 Use Compose to print the status of the containers, and the app logs.
+📋 Run the app using detached containers and use Compose to print the container status and logs.
 
 <details>
   <summary>Not sure how?</summary>
 
 ```
-# you can use some of the usual Docker command names with Compose:
+# run the app:
+docker-compose -f ./labs/compose/rng/v1.yml up -d
+
+# use compose to show just this app's containers:
 docker-compose -f ./labs/compose/rng/v1.yml ps
 
+# and this app's logs:
 docker-compose -f ./labs/compose/rng/v1.yml logs
 ```
 
 </details><br/>
 
-These are just standard containers - the Compose CLI sends commands to the Docker engine the same way the usual Docker CLI does.
+These are just standard containers - the Compose CLI sends commands to the Docker engine in the same way that the usual Docker CLI does.
 
 You can manage containers created with Compose using the Docker CLI too:
 
@@ -140,21 +138,21 @@ Browse to the new web app at http://localhost:8090, and try to get a random numb
 
 ## Managing Apps with Compose 
 
-The web app uses the API to get random numbers. There are only reasons why that might fail:
+The web app uses the API to get random numbers. There are only two reasons why that might fail:
 
 1. The API isn't working
 2. The web app can't connect to the API
 
 The API publishes a port, so we can check it independently.
 
-📋 Find the published port for the API and browse to the /rng endpoint.
+📋 Find the published port for the API and browse to the `/rng` endpoint.
 
 <details>
   <summary>Not sure how?</summary>
 
 ```
-# the API is listening on port 8089 - you can also see that in the Compose file:
-docker port rng_rng-api_1 
+# the API is listening on port 8089 - you can see that in the Compose file or use the CLI:
+docker-compose -f ./labs/compose/rng/v1.yml port rng-api 80
 
 curl localhost:8089/rng
 ```
@@ -165,7 +163,7 @@ curl localhost:8089/rng
 
 Looks like the web app isn't connecting to the API. The web container is packaged with the `nslookup` tool which we can use to check DNS to see if the API domain is accessible.
 
-📋 Check the logs of the web container to see the API address it's using, and check that r.
+📋 Check the logs of the web container to see the API address it's using, and use nslookup to get the IP address of that domain.
 
 <details>
   <summary>Not sure how?</summary>
@@ -181,7 +179,7 @@ docker exec rng_rng-web_1 nslookup numbers-api
 
 </details><br/>
 
-> The API domain isn't accessible.
+> There's a DNS error - the API domain isn't accessible.
 
 The name of a service in the Compose file becomes the DNS name containers can use to access that service. The API service name is `rng-api`, not `numbers-api`.
 
@@ -189,7 +187,7 @@ We could change the API service in the Compose file, but the web app supports a 
 
 - [rng/v2.yml](./rng/v2.yml) sets that config value and also increases the logging level for the API.
 
-Docker Compose uses a desired-state approach. If you need to change your application, you change the YAML and run `up` again. Compose looks at what's running and what you're asking to run and it makes whatever changes it needs.
+Here we'll see the desired-state approach. If you need to change your application, you change the YAML and run `up` again. Compose looks at what's running and what you're asking to run and it makes whatever changes it needs.
 
 📋 Deploy the updated Compose spec in `labs/compose/rng/v2.yml` and use Compose to follow all the container logs.
 
@@ -204,13 +202,13 @@ docker-compose -f ./labs/compose/rng/v2.yml logs -f
 
 </details><br/>
 
-> You'll see both containers get recreated because the spec has changed. Try the app now at http://localhost:8090 and it will work - and you'll see the app logs from Compose.
+> You'll see the web container get recreated because the spec has changed. Try the app now at http://localhost:8090 and it will work - and you'll see the app logs from Compose.
 
 ## Lab
 
-Compose is used to define apps that span multiple containers - but the services are only related through the container networks.
+Compose is used to define apps that span multiple containers, but the services are only related through container networks.
 
-Add an Nginx container to the RNG app definition, and another network. Configure the Nginx service to the new network and the original network.
+Add an Nginx container and another networ kto the RNG app definition. Configure the Nginx service to the new network and the original network.
 
 Deploy the updated spec. What IP address(es) does the Nginx container have? Can you connect the containers together - is the Nginx container accessible from the RNG web container, even though it was created afterwards?
 

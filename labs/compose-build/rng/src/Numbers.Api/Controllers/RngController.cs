@@ -19,6 +19,10 @@ namespace Numbers.Api.Controllers
         {
             _config = config;
             _logger = logger;
+            if (_CallCount == 0)
+            {
+                _logger.LogInformation("Random number generator initialized");
+            }
         }
 
         [HttpGet]
@@ -41,7 +45,7 @@ namespace Numbers.Api.Controllers
                 var min = _config.GetValue<int>("Rng:Range:Min");
                 var max = _config.GetValue<int>("Rng:Range:Max");
                 var n = _Random.Next(min, max);
-                _logger.LogDebug($"Call: {_CallCount}. Returning random number: {n}, fom min: {min}, max: {max}");
+                _logger.LogDebug($"Call: {_CallCount}. Returning random number: {n}, from min: {min}, max: {max}");
                 return Ok(n);
             }
             else

@@ -1,8 +1,8 @@
-version: "3.7"
-
 services:
   rng-api:
     image: dockerfundamentals/rng-api:21.05
+    environment:
+      - Logging__LogLevel__Default=Debug
     ports:
       - "8089:80"
     networks:

@@ -3,3 +3,4 @@ hackathon/**/logs/web/app.log
 labs/compose-model/rng/lab.yml
 labs/compose-model/.env
 labs/troubleshooting/solution.yml
+labs/compose/rng/lab.yml

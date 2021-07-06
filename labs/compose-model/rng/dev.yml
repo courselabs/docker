@@ -1,11 +1,11 @@
 services:
   rng-api:
     ports:
-      - "8089:80"
+      - "8189:80"
 
   rng-web:
     ports:
-      - "8090:80"
+      - "8190:80"
 
 secrets:
   dotnet-logging:

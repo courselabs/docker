@@ -1,6 +1,7 @@
 # Lab Hints
 
-[compose environment file](https://docs.docker.com/compose/env-file/)
+The Compose CLI can be configured with environment variables, and you can set defaults for them in an [environment file](https://docs.docker.com/compose/env-file/).
 
+You'll need a new override file for the lab setup, then setting the default project name and the file locations in the environment file should get you there.
 
-paths are relative
+> Need more? Here's the [solution](solution.md).
