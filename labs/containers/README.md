@@ -43,6 +43,8 @@ docker run alpine hostname
 <details>
   <summary>Not sure how?</summary>
 
+Just repeat the same command:
+
 ```
 docker run alpine hostname
 ```
@@ -51,7 +53,7 @@ docker run alpine hostname
 
 > The container image doesn't get pulled this time, but the output is a different random string.
 
-Those containers ran a single command - when the process completed, the container exited.
+Those containers ran a single command - printing the name of the machine, which is set by Docker. When the process completed, the container exited.
 
 📋 Print a list of all your containers.
 
@@ -62,13 +64,16 @@ Those containers ran a single command - when the process completed, the containe
 # print running containers:
 docker container ls
 
-# or use ps; the a flag shows all statuses
+# or use ps
+docker ps 
+
+# the -a flag shows all statuses
 docker ps -a
 ```
 
 </details><br/>
 
-> You have two containers, both in the exited state. The container IDs match the hostname output.
+> You have two containers, both in the exited state. The container IDs match the hostname output - when Docker creates a container it assigns a random ID and sets it as the machine name.
 
 Those containers didn't do anything useful, but  one-off containers can be good for automation tasks, they can be packaged with all the tools and scripts they need.
 
@@ -96,9 +101,11 @@ docker container logs <container-id>
 
 > Container logs are the output from the container process - Docker saves them when the container exits.
 
+The cert-generator image packages the OpenSSH library with a script to generate HTTPS certificates for a set of domains, with default settings. You'd need to install the libraries and download the script to get the same result without Docker.
+
 ## Running an interactive container
 
-One-off containers run and then stop. You can run a long-running process in a container and connect your terminal to the container's terminal.
+One-off containers run and then stop. You can run a long-running process in a container instead, and connect your terminal to the container's terminal.
 
 This is like connecting to a remote machine - any commands you run actually run inside the container:
 
@@ -106,7 +113,7 @@ This is like connecting to a remote machine - any commands you run actually run 
 docker run -it alpine
 ```
 
-- the `-it` flag means runs interactively, with the local terminal attached
+- the `-it` flag means runs interactively, with the local terminal attached, and the default command for the Alpine container is to run the Linux shell
 
 Now you're connected to the container, you can explore the environment:
 
@@ -123,7 +130,7 @@ exit
 
 Linux OS containers for Docker usually have the bare-minimum toolset installed.
 
-Ubuntu doesn't have curl installed, but the container runs as the root user so you have permissions to install anything you need:
+The Ubuntu team publish a package for Ubuntu Server but it doesn't have all the usual tools installed. There's no [curl](), so you can't make HTTP calls, but the container runs as the root user so you have permissions to install anything you need:
 
 ```
 docker run -it ubuntu
@@ -170,7 +177,7 @@ exit
 
 Interactive containers are great for testing commands and exploring the container setup, but mostly you'll want to run _detached_ containers.
 
-These run in the background, so the container keeps running until the container process exits, or you stop the container.
+These run in the background, so the container keeps running until the application process exits, or you stop the container.
 
 You'll use background containers for web servers, batch processes, databases message queues and any other server process.
 

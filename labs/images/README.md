@@ -71,7 +71,7 @@ docker image ls 'dockerfun/*'
 
 > These are the images stored in your local Docker engine cache.
 
-The new base image doesn't add anything to the [official Ubuntu image](https://hub.docker.com/_/ubuntu).
+The new base image doesn't add anything to the [official Ubuntu image](https://hub.docker.com/_/ubuntu), which is available in lots of different [versions](https://hub.docker.com/_/ubuntu?tab=tags&page=1&ordering=last_updated).
 
 
 📋 Pull the main Ubuntu image, then pull the image for Ubuntu version 20.04.
@@ -95,7 +95,7 @@ List all your Ubuntu images and your own base image:
 docker image ls --filter reference=ubuntu --filter reference=dockerfun/base
 ```
 
-> You'll see they all have the same ID - they're actually aliases of one image
+> You'll see they all have the same ID - they're actually all aliases for a single image
 
 ## Commands and entrypoints
 
@@ -153,7 +153,7 @@ You can run containers from this image with more logical syntax:
 docker run dockerfun/curl:v2 --head dockerfun.courselabs.co
 ```
 
-> The `--head` argument in the container command gets passed to the entrypoint
+> The `--head` argument and URL in the container command gets passed to the entrypoint
 
 📋 List all the `dockerfun/curl` images to compare sizes.
 
@@ -206,7 +206,7 @@ curl localhost:8090
 
 Your turn to write a Dockerfile. 
 
-There's a simple Java app in this folder which has already been built into the file `labs\images\java\HelloWorld.class`.
+There's a simple Java app in this folder which has already been compiled into the file `labs/images/java/HelloWorld.class`.
 
 Build a Docker image which packages that app, and run a container to confirm it's working. The command your container needs to run is `java HelloWorld`.
 

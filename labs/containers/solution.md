@@ -24,7 +24,7 @@ docker pull java:8-jre-alpine
 docker image ls java
 ```
 
-> Latest is 640MB; 8 JRE is 100MB *but* 4 years old...
+> Latest is 640MB; 8 JRE is 100MB *but* both 4 years old...
 
 ## Using OpenJDK
 

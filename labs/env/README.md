@@ -64,7 +64,7 @@ docker run -e DOCKERFUN=env -e LANG=C.UTF-16 openjdk:8-jre-alpine printenv
 
 > This overrides the default language setting in the Java container.
 
-If you're setting lots of variables, it's easier to store them all in a file like [exercises.env](/labs/env/exercises.env) and pass that to the container as an environment file.
+If you're setting lots of variables, it's easier to store them all in a file like [exercises.env](./exercises.env) and pass that to the container as an environment file.
 
 📋 Run container loading `labs/env/exercises.env` as an environment file.
 
@@ -81,7 +81,7 @@ docker run --env-file labs/env/exercises.env alpine printenv
 
 </details><br/>
 
-> Env file contents overwrite default values, but you can overwrite them with `-e`
+> Env file contents overwrite default values, but you can overwrite them too using `-e` flags
 
 ## Container filesystem
 
@@ -112,11 +112,13 @@ cat /usr/share/nginx/html/index.html
 exit
 ```
 
-> The container has the Nginx web server installed, and some default HTML content.
+> The container has the Nginx web server installed, and some default HTML pages.
 
-You can mount a directotry from your local machine into the container filesystem. You can use that to add new content, or to override existing files.
+You can mount a directory from your local machine into the container filesystem. You can use that to add new content, or to override existing files.
 
-[index.html](/labs/env/html/index.html) is a web page you can display from Nginx when you mount the local folder as a volume:
+- [index.html](./html/index.html) is a web page you can display from Nginx when you mount the local folder as a volume.
+
+Run a container to show the new web page - you need to use the full path as the source for the volume:
 
 ```
 # put the full local path in a variable - on macOS/Linux:
@@ -129,11 +131,11 @@ $htmlPath="${PWD}/labs/env/html"
 docker run -d -p 8081:80 -v ${htmlPath}:/usr/share/nginx/html --name nginx2 nginx:alpine
 ```
 
-- `-v` mounts a local directory to the container - you need to use a full path for the source, the variables mean we can use the same Docker command on any OS
+- `-v` mounts a local directory to the container - the variables store the full path and mean we can use the same Docker command on any OS
 
 > Browse to http://localhost:8081 and you'll see the custom HTML response.
 
-The container is reading data from your local machine. You can edit [index.html](/labs/env/html/index.html) and when you refresh your browser you'll see your changes straight away.
+The container is reading data from your local machine. You can edit [index.html](./html/index.html) and when you refresh your browser you'll see your changes straight away.
 
 ## Compute resources
 
@@ -186,16 +188,14 @@ docker container inspect --format='Memory: {{.HostConfig.Memory}}b, CPU: {{.Host
 
 ## Lab
 
-We can run a container to generate TLS certificates, but the certs are created inside the container filesystem.
+We ran a container to generate TLS certificates in the [containers lab](../containers/README.md), but the certs were created inside the container filesystem.
 
 In this lab your job is to copy the TLS certificate and key from the container onto your local machine.
 
-Start by generating certs in a new named container:
+Start by generating certs in a new named container - run it in the background and the container will stay up:
 
 ```
-docker run --name tls kiamol/ch15-cert-generator
-
-# Ctrl-C to exit
+docker run -d --name tls kiamol/ch15-cert-generator
 ```
 
 Now copy the `server-cert.pem` and `server-key.pem` files from the `/certs` folder in the container onto your machine.

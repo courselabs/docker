@@ -1,5 +1,11 @@
 # Lab Solution
 
+You can run a command inside the container to list files:
+
+```
+docker exec tls ls /certs
+```
+
 The [docker cp](https://docs.docker.com/engine/reference/commandline/cp/) command copies files between containers and the local filesystem.
 
 To copy from the container called `tls`, use:

@@ -1,7 +1,7 @@
 
 # Accessing Images on Registries
 
-*Registires* are servers which store Docker images. Docker Hub is the most popular, but the registry API is standard and you can run your own registry as a private image store.
+*Registires* are servers which store Docker images. Docker Hub is the most popular, but the registry API is standard and you can run your own registry in the cloud or locally as your private image store.
 
 Organizations run their own registries so they can have a long-term store of release versions from the build pipeline, or to make images available in the same network region as the production environment.
 
@@ -9,8 +9,8 @@ Organizations run their own registries so they can have a long-term store of rel
 
 - [Pulling images](https://docs.docker.com/engine/reference/commandline/image_pull/)
 - [Pushing images](https://docs.docker.com/engine/reference/commandline/image_push/)
-- [Docker Registry](https://docs.docker.com/registry/) - for running your own registry in a container :)
 - [Registry API spec](https://github.com/opencontainers/distribution-spec/blob/main/spec.md#endpoints)
+- [Docker Registry](https://docs.docker.com/registry/) - for running your own registry in a container :)
 
 <details>
   <summary>CLI overview</summary>
@@ -34,7 +34,7 @@ docker tag --help
 
 Any images you build are only stored on your machine.
 
-To share images you need to push them to a *registry* - like Docker Hub. The image name needs to include your username, which Docker Hub uses to identify ownership.
+To share images you need to push them to a *registry* - like Docker Hub. For Docker Hub the image name needs to include your username, which Docker Hub uses to identify ownership.
 
 Make sure you've [registered on Docker Hub](https://hub.docker.com/signup/). Then save your Docker ID in a variable, so we can use it in later commands:
 
@@ -92,12 +92,12 @@ Tags are typically used for versioning, so you can assume that `sixeyed/curl:20.
 Add a new reference for your image using the `tag` command:
 
 ```
-docker tag ${dockerId}/curl:v2 ${dockerId}/curl:21.07
+docker tag ${dockerId}/curl:21.06 ${dockerId}/curl:21.07
 
 docker image ls '*/curl'
 ```
 
-> Now you have lots of curl images, but all the v2 images have the same ID
+> Now you have lots of curl images, but all the aliases have the same image ID
 
 📋 Push all of your `curl` image tags to Docker Hub.
 
@@ -112,9 +112,9 @@ docker push ${dockerId}/curl:21.07
 docker push --all-tags ${dockerId}/curl
 ```
 
-> You'll see lots of `Layer already exists` output - registries have the same layer caching approach as the Docker Engine.
-
 </details><br/>
+
+> You'll see lots of `Layer already exists` output - registries have the same layer caching approach as the Docker Engine.
 
 ## Running a local registry
 
@@ -130,11 +130,11 @@ docker run -d -p 5000:5000 --name registry registry:2.7.1
 docker logs registry
 ```
 
+Your local registry domain is `localhost:5000` so you can include that in image references to push and pull locally.
+
 The full image reference format is:
 
 - `[registry-domain]/[repository-name]:[tag]`
-
-Your local registry domain is `localhost:5000` so you can include that in image references to push and pull locally.
 
 📋 Tag the Alpine image and push it to your local registry.
 
@@ -142,8 +142,10 @@ Your local registry domain is `localhost:5000` so you can include that in image 
   <summary>Not sure how?</summary>
 
 ```
+# the tag command creates an alias, which can include the registry domain:
 docker tag alpine localhost:5000/alpine
 
+# pushing a tag with a domain in the reference tells Docker which registry to use:
 docker push localhost:5000/alpine
 ```
 
@@ -161,7 +163,7 @@ curl localhost:5000/v2/alpine/tags/list
 
 > Every image has a tag - if you don't supply one, Docker uses a default.
 
-You can remove your local tag and pull it again from the registry:
+You can remove your local image and pull it again from the registry:
 
 ```
 docker image rm localhost:5000/alpine
@@ -175,6 +177,7 @@ docker pull localhost:5000/alpine
   <summary>Not sure how?</summary>
 
 ```
+# you can use any string in the image tag:
 docker tag alpine localhost:5000/alpine:21.07
 
 docker tag alpine localhost:5000/alpine:local
