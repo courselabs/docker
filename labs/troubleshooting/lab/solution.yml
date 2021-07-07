@@ -17,9 +17,11 @@ services:
       - RngApi__Url=http://rng-api/rng
     ports:
       - "8090:80"
-    cpus: 2.0
+    cpus: 2.5
     networks:
       - app-net
+      - front-end
 
 networks:
   app-net:
+  front-end:

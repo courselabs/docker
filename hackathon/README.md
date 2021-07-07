@@ -1,6 +1,6 @@
 # Hackathon!
 
-The hackathon is your chance to spend some decent time modelling and deploying a Kubernetes app on your own.
+The hackathon is your chance to spend some decent time modelling and deploying a Docker Compose app on your own.
 
 You'll use all the key skills you've learned, and:
 
@@ -42,7 +42,7 @@ When you're done you should be able to browse to http://localhost:8080 and see t
 <details>
   <summary>Solution</summary>
 
-If you didn't get part 1 finished, you can check out the sample solution from [hackathon/solution-part-1](/hackathon/solution-part-1/docker-compose.yml). 
+If you didn't get part 1 finished, you can check out the sample solution from [hackathon/solution-part-1](./solution-part-1/docker-compose.yml). 
 
 Deploy the sample solution and you can continue to part 2:
 
@@ -64,7 +64,7 @@ Here's what we want to do:
 
 - the web app writes logs to a file; mount a volume so when the app writes files in `/logs` in the container, they actually get written inside the `hackathon` directory on your machine
 
-- increase the default logging level for the web app to `Debug`. You'll need to do this by loading a JSON config file like [logging.json](hackathon/solution-part-2/config/web/logging.json) into the contaier filesystem at `/app/config`.
+- increase the default logging level for the web app to `Debug`. You'll need to do this by loading a JSON config file like [logging.json](./solution-part-2/config/web/logging.json) into the contaier filesystem at `/app/config`.
 
 <details>
   <summary>Hints</summary>
@@ -80,7 +80,7 @@ When you've rolled out your update, the UI will be updated but the products and 
 <details>
   <summary>Solution</summary>
 
-If you didn't get part 2 finished, you can check out the specs in the sample solution from [hackathon/solution-part-2](/hackathon/solution-part-2/docker-compose.yml). 
+If you didn't get part 2 finished, you can check out the specs in the sample solution from [hackathon/solution-part-2](./solution-part-2/docker-compose.yml). 
 
 Deploy the sample solution and you can continue to part 3:
 
@@ -111,7 +111,7 @@ Add some reliability to the app:
 <details>
   <summary>Hints</summary>
   
-Remember ports are exclusive-use resources, so if you were publishing ports for components which need to scale then you can't do that.
+Remember ports are exclusive-use resources, so if you were publishing ports for components which need to scale then you need to change that.
 
 </details><br/>
 
@@ -120,7 +120,7 @@ The app won't look any different if you get your update right. If not, you'll ne
 <details>
   <summary>Solution</summary>
 
-If you didn't get part 3 finished, you can check out the specs in the sample solution from [hackathon/solution-part-3](/hackathon/solution-part-3/docker-compose.yml). 
+If you didn't get part 3 finished, you can check out the specs in the sample solution from [hackathon/solution-part-3](./solution-part-3/docker-compose.yml). 
 
 Deploy the sample solution:
 
@@ -130,7 +130,7 @@ docker-compose -p hackathon -f hackathon/solution-part-3/docker-compose.yml up -
 
 </details><br/>
 
-> It's still not perfect, because the app doesn't respond immediately after a new deployment. And we really need to be able to scale the web component...
+> It's still not perfect, because the app doesn't respond immediately after a new deployment. And we really need to be able to scale the web component. Who's for Kubernetes next? 
 
 ___ 
 
