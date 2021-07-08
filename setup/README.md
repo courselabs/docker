@@ -1,6 +1,14 @@
-# Running Docker Locally
+# Set Up Docker and Git
 
 Docker runs as a background service on server operating systems, but in a local environment the easiest option is Docker Desktop.
+
+We'll also use [Git](https://git-scm.com) for source control, so you'll need a client on your machine to talk to GitHub.
+
+## Git Client - Mac, Windows or Linux
+
+Git is a free, open source tool for source control:
+
+- [Install Git](https://git-scm.com/downloads)
 
 ## Docker Desktop - Mac or Windows
 
@@ -28,7 +36,19 @@ Docker Engine is the background service which runs containers. You can install i
 
 ## Check your setup
 
-When you have Docker running you should be able to run this command and get some output:
+When you have Git and Docker installed you should be able to run these commands and get some output:
+
+```
+git --version
+```
+
+I'm using Git for Windows and my output is:
+
+```
+git version 2.31.1.windows.1
+```
+
+Then run:
 
 ```
 docker version

@@ -4,11 +4,17 @@ These are hands-on resources to help you learn Docker.
 
 ## Pre-reqs
 
- - [Set up Docker](setup)
+ - [Set up Docker and a Git client](./setup/README.md)
  - Create a [Docker Hub](https://hub.docker.com/signup) account (free)
- - `git clone https://github.com/courselabs/docker-fundamentals.git`
- - `cd docker-fundamentals`
- - `docker login` -  using your Docker Hub ID
+ - Download the lab content
+    - Open a terminal (PowerShell, Bash, ZSH or whatever you use) 
+    - Run: `git clone https://github.com/courselabs/docker-fundamentals`
+    - Open the folder: `cd docker-fundamentals`
+ - Log in to Docker Hub:
+   - `docker login` -  using your Docker Hub ID 
+- _Optional_
+    -   Install [Visual Studio Code](https://code.visualstudio.com) (free - Windows, macOS and Linux) to browse the repo and documentation
+
 
 ## Part 1 - Containers and Images
 
