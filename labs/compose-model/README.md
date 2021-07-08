@@ -58,9 +58,9 @@ Print the environment variable details from the new web container to see that th
 docker container inspect --format='{{.Config.Env}}' rng_rng-web_1
 ```
 
-## Volume mounts and secrets
-
 Environment variables are a common way to set application config, but they're not as flexible as config files.
+
+## Volume mounts and secrets
 
 Compose lets you model volume mounts, so you can load local files into the container filesystem. That uses the same approach as `docker run` - specifying a source and target path. Compose also has an abstraction called `secrets`:
 

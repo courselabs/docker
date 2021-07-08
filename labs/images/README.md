@@ -40,7 +40,7 @@ export DOCKER_BUILDKIT=0
 $env:DOCKER_BUILDKIT=0
 ```
 
-> [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/) is a more efficient build engine; it produces the same images but the printed output is less clear, so you'll understand the process better with the old engine.
+> [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/) is the new Docker build engine. It produces the same images as the original engine, but the printed output doesn't show the Dockerfile instructions being executed. We're using the original Engine so you can see all the steps.
 
 We'll build a really simple base image:
 
