@@ -39,7 +39,7 @@ These are hands-on resources to help you learn Docker.
 
 ## Part 4 - Real-World Docker
 
-- [Troubleshooting](labs/troubleshooting/README.md) # cmd, port, mount
+- [Troubleshooting](labs/troubleshooting/README.md) 
 - [Hackathon!](hackathon/README.md)
 
 ### Credits
