@@ -182,7 +182,7 @@ docker-compose -f labs/networking/compose-network.yml up -d
 # try it out at http://localhost:8090
 
 # print the container's network details:
-docker exec networking_rng-api_1 /scripts/network-info.sh
+docker exec networking_rng-api_1 sh /scripts/network-info.sh
 ```
 
 </details><br/>
