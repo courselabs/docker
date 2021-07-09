@@ -127,6 +127,7 @@ There's a script in this folder which we can mount in a container to print the n
 ```
 # on macOS/Linux:
 scriptsPath="${PWD}/labs/networking/scripts"
+chmod +x "${PWD}/labs/networking/scripts/network-info.sh"
 
 # OR with PowerShell:
 $scriptsPath="${PWD}/labs/networking/scripts"
