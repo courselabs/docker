@@ -22,15 +22,15 @@ Widgetario is a company which sells gadgets. They want to run their public web a
 
 There are four components to the app, each will need its own Docker image. The source code is in the `hackathon/src` folder, and each component has a Dockerfile which needs to be completed:
 
-- Products database - a Postgres database, built with some sample data ([db\postgres\Dockerfile](.\src\db\postgres\Dockerfile))
+- Products database - a Postgres database, built with some sample data ([db/postgres/Dockerfile](./src/db/postgres/Dockerfile))
 
-- Products API - a Java REST API which reads from the Products database ([products-api\java\Dockerfile](.\src\products-api\java\Dockerfile))
+- Products API - a Java REST API which reads from the Products database ([products-api/java/Dockerfile](./src/products-api/java/Dockerfile))
 
-- Stock API - a Go REST API which also reads from the Products database ([stock-api\golang\Dockerfile](.\src\stock-api\golang\Dockerfile))
+- Stock API - a Go REST API which also reads from the Products database ([stock-api/golang/Dockerfile](./src/stock-api/golang/Dockerfile))
 
-- Website- an ASP.NET Core website which reads from the Products and Stock API ([web\dotnet\Dockerfile](.\src\web\dotnet\Dockerfile))
+- Website- an ASP.NET Core website which reads from the Products and Stock API ([web/dotnet/Dockerfile](./src/web/dotnet/Dockerfile))
 
-You can use `docker build` commands to check all your components, but it might be easier to add build sections to [docker-compose.yml](.\src\docker-compose.yml). Then you can use `docker-compose build` to build all the images.
+You can use `docker build` commands to check all your components, but it might be easier to add build sections to [docker-compose.yml](./src/docker-compose.yml). Then you can use `docker-compose build` to build all the images.
 
 <details>
   <summary>💡 Hints</summary>
@@ -46,13 +46,13 @@ All the components should build without any errors, and you should have four new
 
 If you didn't get part 1 finished, you can check out the sample solution from `hackathon/solution-part-1`:
 
-- Products database [db\postgres\Dockerfile](.\solution-part-1\db\postgres\Dockerfile)
+- Products database [db/postgres/Dockerfile](./solution-part-1/db/postgres/Dockerfile)
 
-- Products API [products-api\java\Dockerfile](.\solution-part-1\products-api\java\Dockerfile)
+- Products API [products-api/java/Dockerfile](./solution-part-1/products-api/java/Dockerfile)
 
-- Stock API [stock-api\golang\Dockerfile](.\solution-part-1\stock-api\golang\Dockerfile)
+- Stock API [stock-api/golang/Dockerfile](./solution-part-1/stock-api/golang/Dockerfile)
 
-- Website [web\dotnet\Dockerfile](.\solution-part-1\web\dotnet\Dockerfile)
+- Website [web/dotnet/Dockerfile](./solution-part-1/web/dotnet/Dockerfile)
 
 Build from the sample solution and you can continue to part 1:
 
@@ -126,7 +126,7 @@ When you've rolled out your update, the UI will be updated but the products and 
 You should be able to see the logs from the web app in your local filesystem:
 
 ```
-cat .\logs\web\app.log
+cat ./logs/web/app.log
 ```
 
 <details>
@@ -140,7 +140,7 @@ Deploy the sample solution and you can continue to part 4:
 docker-compose -p hackathon -f hackathon/solution-part-3/docker-compose.yml up -d
 
 # test the app and you'll be able to see the logs with:
-cat .\hackathon\solution-part-3\logs\web\app.log
+cat ./hackathon/solution-part-3/logs/web/app.log
 ```
 
 </details><br/>
