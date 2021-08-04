@@ -1,0 +1,13 @@
+services:
+
+  products-db:
+    image: hackathon/products-db
+
+  products-api:
+    image: hackathon/products-api
+
+  stock-api:
+    image: hackathon/stock-api
+
+  web:
+    image: hackathon/web

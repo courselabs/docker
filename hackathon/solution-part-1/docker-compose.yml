@@ -1,26 +1,21 @@
 services:
 
   products-db:
-    image: widgetario/products-db:21.03
-    networks:
-      - app-net
+    image: hackathon/products-db
+    build:
+      context: db/postgres
 
   products-api:
-    image: widgetario/products-api:21.03
-    networks:
-      - app-net
+    image: hackathon/products-api
+    build:
+      context: products-api/java
 
   stock-api:
-    image: widgetario/stock-api:21.03
-    networks:
-      - app-net
-  
-  web:
-    image: widgetario/web:21.03
-    ports:
-      - "8080:80"
-    networks:
-      - app-net
+    image: hackathon/stock-api
+    build:
+      context: stock-api/golang
 
-networks:
-  app-net:
+  web:
+    image: hackathon/web
+    build:
+      context: web/dotnet
