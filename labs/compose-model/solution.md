@@ -2,7 +2,7 @@
 
 The lab model for the app just sets new ports and uses the existing dev config files:
 
-- [lab/compose.yml]()./lab/compose.yml)
+- [lab/compose.yml](./lab/compose.yml)
 
 The Compose env file sets a project name and default files - using the core and the lab override:
 
