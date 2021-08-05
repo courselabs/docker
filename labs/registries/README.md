@@ -1,7 +1,7 @@
 
 # Accessing Images on Registries
 
-*Registires* are servers which store Docker images. Docker Hub is the most popular, but the registry API is standard and you can run your own registry in the cloud or locally as your private image store.
+*Registries* are servers which store Docker images. Docker Hub is the most popular, but the registry API is standard and you can run your own registry in the cloud or locally as your private image store.
 
 Organizations run their own registries so they can have a long-term store of release versions from the build pipeline, or to make images available in the same network region as the production environment.
 

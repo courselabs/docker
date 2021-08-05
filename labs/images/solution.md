@@ -17,7 +17,7 @@ The class file and the Dockerfile are in different directories, so you need to u
 Build the image using that context and specifying the path to the Dockerfile:
 
 ```
-docker build -t java-hello-world -f labs\images\lab\Dockerfile labs\images
+docker build -t java-hello-world -f labs/images/lab/Dockerfile labs/images
 ```
 
 Run a container from the image:
