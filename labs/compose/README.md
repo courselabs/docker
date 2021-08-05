@@ -208,7 +208,7 @@ docker-compose -f ./labs/compose/rng/v2.yml logs -f
 
 Compose is used to define apps that span multiple containers, but the services are only related through container networks.
 
-Add an Nginx container and another networ kto the RNG app definition. Configure the Nginx service to the new network and the original network.
+Add an Nginx container and another network to the RNG app definition. Configure the Nginx service to the new network and the original network.
 
 Deploy the updated spec. What IP address(es) does the Nginx container have? Can you connect the containers together - is the Nginx container accessible from the RNG web container, even though it was created afterwards?
 

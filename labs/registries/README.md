@@ -200,3 +200,11 @@ Docker uses defaults for the registry and the tag. What are those defaults? What
 Not all official images are on Docker Hub. Microsoft uses its own image registry *MCR* at `mcr.microsoft.com`. What command would you use to pull version `5.0` of the `dotnet/runtime` image from MCR?
 
 > Stuck? Try [hints](hints.md) or check the [solution](solution.md).
+___
+## Cleanup
+
+Cleanup by removing all containers:
+
+```
+docker rm -f $(docker ps -aq)
+```
