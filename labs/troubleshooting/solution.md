@@ -2,7 +2,7 @@
 
 My solution is here:
 
-- [solution.yaml](./lab/solution.yaml)
+- [solution.yml](./lab/solution.yml)
 
 Copy it to the main folder so the config paths are correct, and the app will work:
 

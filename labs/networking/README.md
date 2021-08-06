@@ -18,7 +18,7 @@ Networks are separate objects, which you can manage from the Docker CLI:
 ```
 docker network --help
 
-docker nework ls
+docker network ls
 ```
 
 > Docker uses a [plugin model for networking](https://docs.docker.com/engine/extend/plugins_network/), so containers can be modelled to fit with different physical network architectures.
