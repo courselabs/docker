@@ -23,12 +23,14 @@ These are samples in the major languages:
 
 ## Multi-Stage Dockerfiles
 
-We'll start by using the original build engine - later we'll switch to BuildKit which has better performance:
+We'll start by using the original build engine so it's clear what's happening in the build - later we'll switch to BuildKit which has better performance:
 
 ```
-$env:DOCKER_BUILDKIT=0
-
+# on macOS or Linux:
 export DOCKER_BUILDKIT=0
+
+# OR with PowerShell:
+$env:DOCKER_BUILDKIT=0
 ```
 
 Here's a [simple multi-stage Dockerfile](./simple/Dockerfile):
@@ -167,6 +169,8 @@ SDK images are typically very large, having the whole build toolset. You don't w
   <summary>Not sure how?</summary>
 
 ```
+docker pull golang:1.16.4-alpine
+
 docker image ls -f reference=whoami -f reference=golang
 ```
 
