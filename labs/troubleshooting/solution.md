@@ -26,10 +26,10 @@ docker-compose -f labs/troubleshooting/solution.yml up -d
 
 2. Duplicate port mapping - both the web app and API are trying to publish port `8089`. You'll see `port is already allocated` - the web app should be publishing to port `8090`.
 
-# Runtime failures
+## Runtime failures
 
 1. The API container exits after starting. Check the logs and you'll see `the application was not found`. The volume mount is incorrect - it's loading the config folder into the `/app` folder, which overwrites the contents from the image so there is no application binary. The volume target should be `/app/config`.
 
-# Networking failures
+## Networking failures
 
 1. Try using the website and you'll get the `RNG service unavailable!` error. The web container logs show you the app is using the correct URL, but if you run `nslookup` the API container can't be found. The spec uses two different networks, so the containers aren't connected - the web container needs to attach to the `app-net` network.
