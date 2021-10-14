@@ -1,6 +1,6 @@
 services:
   rng-api:
-    image: dockerfundamentals/rng-api:21.05
+    image: courselabs/rng-api:21.05
     volumes:
       - ./config/dev/logging.json:/app/config/logging.json
     secrets:
@@ -12,7 +12,7 @@ services:
       - app-net
 
   rng-web:
-    image: dockerfundamentals/rng-web:21.05
+    image: courselabs/rng-web:21.05
     volumes:
       - ./config/dev/logging.json:/app/config/logging.json
     secrets:

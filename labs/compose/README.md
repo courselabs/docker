@@ -42,7 +42,7 @@ Docker can run any kind of app - the container image could be for a lightweight 
 Try running a sample app - this is the web component for a random number generator:
 
 ```
-docker run -d -p 8088:80 --name rng-web dockerfundamentals/rng-web:21.05
+docker run -d -p 8088:80 --name rng-web courselabs/rng-web:21.05
 ```
 
 Browse to http://localhost:8088 and try to get a random number. After a few seconds it will fail and show the error message `RNG service unavailable!`.

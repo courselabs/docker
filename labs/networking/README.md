@@ -157,9 +157,9 @@ docker run --dns 1.1.1.1 --hostname alpine1 -v ${scriptsPath}:/scripts alpine sh
 You can also set an IP address - but first you need to create a network with a specific IP address range: 
 
 ```
-docker network create --subnet=10.10.0.0/16 dockerfun
+docker network create --subnet=10.10.0.0/16 courselabs
 
-docker run --network dockerfun --ip 10.10.0.100 -v ${scriptsPath}:/scripts alpine sh /scripts/network-info.sh
+docker run --network courselabs --ip 10.10.0.100 -v ${scriptsPath}:/scripts alpine sh /scripts/network-info.sh
 ```
 
 > Unless you configure them, IP addresses are set at random by Docker - you'll need to use a custom subnet range if Docker's IP address collides with your network or VPN.

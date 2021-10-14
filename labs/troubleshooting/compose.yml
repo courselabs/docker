@@ -1,6 +1,6 @@
 services:
   rng-api:
-    image: dockerfundamentals/rng-api:21.05
+    image: courselabs/rng-api:21.05
     entrypoint: ["dontet", "/app/Numbers.Api.dll"]
     env_file: ./config/logging.env
     ports:
@@ -11,7 +11,7 @@ services:
       - app-net
 
   rng-web:
-    image: dockerfundamentals/rng-website:21.05
+    image: courselabs/rng-website:21.05
     env_file: ./config/logging.env
     environment:
       - RngApi__Url=http://rng-api/rng

@@ -135,7 +135,7 @@ The Ubuntu team publish a package for Ubuntu Server but it doesn't have all the 
 ```
 docker run -it ubuntu
 
-curl https://dockerfun.courselabs.co   # command not found
+curl https://docker.courselabs.co   # command not found
 
 apt-get install -y curl  # this doesn't work - there's no install cache
 
@@ -143,7 +143,7 @@ apt-get update  # update the cache
 
 apt-get install -y curl  # now this works
 
-curl https://dockerfun.courselabs.co
+curl https://docker.courselabs.co
 
 exit
 ```
@@ -157,7 +157,7 @@ exit
 
 ```
 # you can do this as a one-off container - it won't work:
-docker run ubuntu bash -c 'curl https://dockerfun.courselabs.co'
+docker run ubuntu bash -c 'curl https://docker.courselabs.co'
 ```
 
 </details><br/>

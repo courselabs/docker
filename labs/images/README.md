@@ -47,14 +47,14 @@ We'll build a really simple base image:
 - [base image Dockerfile](./base/Dockerfile)
 
 ```
-docker build -t dockerfun/base ./labs/images/base
+docker build -t courselabs/base ./labs/images/base
 ```
 
 - `-t` or `--tag` gives the image a name
 - you end the build command with the path to the Dockerfile folder
 
 
-📋 List all the images you have - then filter them for images starting with 'dockerfun'.
+📋 List all the images you have - then filter them for images starting with 'courselabs'.
 
 <details>
   <summary>Not sure how?</summary>
@@ -63,8 +63,8 @@ docker build -t dockerfun/base ./labs/images/base
 # list all local images:
 docker image ls
 
-# and filter for the dockerfun images:
-docker image ls 'dockerfun/*'
+# and filter for the courselabs images:
+docker image ls 'courselabs/*'
 ```
 
 </details><br/>
@@ -92,7 +92,7 @@ docker pull ubuntu:20.04
 List all your Ubuntu images and your own base image:
 
 ```
-docker image ls --filter reference=ubuntu --filter reference=dockerfun/base
+docker image ls --filter reference=ubuntu --filter reference=courselabs/base
 ```
 
 > You'll see they all have the same ID - they're actually all aliases for a single image
@@ -109,13 +109,13 @@ Here's a simple example which installs the curl tool:
 
 - [curl Dockerfile](./curl/Dockerfile)
 
-📋 Build an image called `dockerfun/curl` from the `labs/images/curl` Dockerfile.
+📋 Build an image called `courselabs/curl` from the `labs/images/curl` Dockerfile.
 
 <details>
   <summary>Not sure how?</summary>
 
 ```
-docker build -t dockerfun/curl ./labs/images/curl
+docker build -t courselabs/curl ./labs/images/curl
 ```
 
 </details><br/>
@@ -124,13 +124,13 @@ Now you can run a container from the image, but it might not behave as you expec
 
 ```
 # just runs curl:
-docker run dockerfun/curl 
+docker run courselabs/curl 
 
 # doesn't pass the URL to curl:
-docker run dockerfun/curl dockerfun.courselabs.co
+docker run courselabs/curl docker.courselabs.co
 
 # to use curl you need to specify the curl command:
-docker run dockerfun/curl curl --head dockerfun.courselabs.co
+docker run courselabs/curl curl --head docker.courselabs.co
 ```
 
 > The `CMD` instruction sets the exact command for a container to run. You can't pass options to the container command - but you can override it completely.
@@ -142,7 +142,7 @@ This updated Dockerfile makes a more usable image:
 Build a v2 image from that Dockerfile:
 
 ```
-docker build -t dockerfun/curl:v2 -f labs/images/curl/Dockerfile.v2 labs/images/curl
+docker build -t courselabs/curl:v2 -f labs/images/curl/Dockerfile.v2 labs/images/curl
 ```
 
 - the `-f` flag specifies the Dockerfile name - you need it if you're not using the standard name
@@ -150,18 +150,18 @@ docker build -t dockerfun/curl:v2 -f labs/images/curl/Dockerfile.v2 labs/images/
 You can run containers from this image with more logical syntax:
 
 ```
-docker run dockerfun/curl:v2 --head dockerfun.courselabs.co
+docker run courselabs/curl:v2 --head docker.courselabs.co
 ```
 
 > The `--head` argument and URL in the container command gets passed to the entrypoint
 
-📋 List all the `dockerfun/curl` images to compare sizes.
+📋 List all the `courselabs/curl` images to compare sizes.
 
 <details>
   <summary>Not sure how?</summary>
 
 ```
-docker image ls dockerfun/curl
+docker image ls courselabs/curl
 ```
 
 </details><br/>
@@ -181,7 +181,7 @@ This Dockerfile bundles some custom HTML content on top of the official Nginx im
 - [custom HTML page](./web/index.html)
 
 ```
-docker build -t dockerfun/web ./labs/images/web
+docker build -t courselabs/web ./labs/images/web
 ```
 
 - the folder path is called the *context* - it contains the Dockerfile and any files it references, the `index.html` file in this case
@@ -193,7 +193,7 @@ docker build -t dockerfun/web ./labs/images/web
 
 ```
 # use any free local port, e.g. 8090:
-docker run -d -p 8090:80 dockerfun/web
+docker run -d -p 8090:80 courselabs/web
 
 curl localhost:8090
 ```

@@ -1,4 +1,4 @@
-Welcome to the Docker Fundamentals labs.
+Welcome to the Docker labs.
 
 These are hands-on resources to help you learn Docker.
 
@@ -8,8 +8,8 @@ These are hands-on resources to help you learn Docker.
  - Create a [Docker Hub](https://hub.docker.com/signup) account (free)
  - Download the lab content
     - Open a terminal (PowerShell, Bash, ZSH or whatever you use) 
-    - Run: `git clone https://github.com/courselabs/docker-fundamentals`
-    - Open the folder: `cd docker-fundamentals`
+    - Run: `git clone https://github.com/courselabs/docker`
+    - Open the folder: `cd docker`
  - Log in to Docker Hub:
    - `docker login` -  using your Docker Hub ID 
 - _Optional_

@@ -1,6 +1,6 @@
 services:
   rng-api:
-    image: dockerfundamentals/rng-api:21.05
+    image: courselabs/rng-api:21.05
     secrets:
       - source: dotnet-logging
         target: /app/config/logging.json
@@ -10,7 +10,7 @@ services:
       - app-net
 
   rng-web:
-    image: dockerfundamentals/rng-web:21.05
+    image: courselabs/rng-web:21.05
     secrets:
       - source: dotnet-logging
         target: /app/config/logging.json

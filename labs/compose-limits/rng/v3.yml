@@ -1,6 +1,6 @@
 services:
   rng-api:
-    image: dockerfundamentals/rng-api:21.05
+    image: courselabs/rng-api:21.05
     environment:
       - Rng__FailAfter__Enabled=true
       - Rng__FailAfter__CallCount=10
@@ -11,7 +11,7 @@ services:
       - app-net
 
   rng-web:
-    image: dockerfundamentals/rng-web:21.05
+    image: courselabs/rng-web:21.05
     environment:
       - Logging__LogLevel__Default=Debug
       - RngApi__Url=http://rng-api/rng

@@ -49,7 +49,7 @@ docker run openjdk:8-jre-alpine printenv
 
 ```
 # -e adds a new environment variable
-docker run -e DOCKERFUN=env alpine printenv
+docker run -e COURSELABS=env alpine printenv
 ```
 
 </details><br/>
@@ -59,7 +59,7 @@ docker run -e DOCKERFUN=env alpine printenv
 You can add as many environment variables as you need, and you can also *override* default variables for the container:
 
 ```
-docker run -e DOCKERFUN=env -e LANG=C.UTF-16 openjdk:8-jre-alpine printenv
+docker run -e COURSELABS=env -e LANG=C.UTF-16 openjdk:8-jre-alpine printenv
 ```
 
 > This overrides the default language setting in the Java container.

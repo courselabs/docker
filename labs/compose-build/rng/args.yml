@@ -1,6 +1,6 @@
 services:
   rng-api:
-    image: ${REPOSITORY:-dockerfundamentals}/rng-api:${RELEASE:-21.05}-${BUILD_NUMBER:-0}
+    image: ${REPOSITORY:-courselabs}/rng-api:${RELEASE:-21.05}-${BUILD_NUMBER:-0}
     build:
       args:
         BUILD_VERSION: ${RELEASE:-21.05}.${BUILD_NUMBER:-0}
@@ -8,7 +8,7 @@ services:
         COMMIT_SHA: ${GITHUB_SHA:-local}
 
   rng-web:
-    image: ${REPOSITORY:-dockerfundamentals}/rng-web:${RELEASE:-21.05}-${BUILD_NUMBER:-0}
+    image: ${REPOSITORY:-courselabs}/rng-web:${RELEASE:-21.05}-${BUILD_NUMBER:-0}
     build:
       args:
         BUILD_VERSION: ${RELEASE:-21.05}.${BUILD_NUMBER:-0}

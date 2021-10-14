@@ -1,6 +1,6 @@
 services:
   rng-api:
-    image: dockerfundamentals/rng-api:21.05
+    image: courselabs/rng-api:21.05
     environment:
       - Logging__LogLevel__Default=Debug
     volumes: 
@@ -10,7 +10,7 @@ services:
         ipv4_address: 10.218.0.10
 
   rng-web:
-    image: dockerfundamentals/rng-web:21.05
+    image: courselabs/rng-web:21.05
     environment:
       - Logging__LogLevel__Default=Debug
       - RngApi__Url=http://10.218.0.10/rng
@@ -21,7 +21,7 @@ services:
 
 networks:
   app-net:
-    name: dockerfun-rng
+    name: courselabs-rng
     ipam:
       driver: default
       config:

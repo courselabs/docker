@@ -185,7 +185,7 @@ docker-compose -p hackathon -f hackathon/solution-part-4/docker-compose.yml up -
 
 </details><br/>
 
-> It's still not perfect, because the app doesn't respond immediately after a new deployment. And we really need to be able to scale the web component. Who's for learning [Kubernetes](https://k8sfun.courselabs.co) next? 
+> It's still not perfect, because the app doesn't respond immediately after a new deployment. And we really need to be able to scale the web component. Who's for learning [Kubernetes](https://kubernetes.courselabs.co) next? 
 
 ___ 
 

@@ -2,7 +2,7 @@
 
 [Kubernetes](https://kubernetes.io) is the most popular container platform, largely because it's supported by all the clouds and many on-prem vendors. You can run Kubernetes in a managed service, or in the datacenter, or on your laptop and it works in the same way.
 
-You need to invest time to learn Kubernetes - the [Kubernetes Fundamentals](https://k8sfun.courselabs.co) course is a two-day class of its own. Ultimately Kubernetes runs your apps in containers using the same images you use with the Docker CLI or with Compose or swarm, but the model is very different.
+You need to invest time to learn Kubernetes - the [Kubernetes Course Labs](https://kubernetes.courselabs.co) course is a four day class of its own. Ultimately Kubernetes runs your apps in containers using the same images you use with the Docker CLI or with Compose or swarm, but the model is very different.
 
 # Reference
 
@@ -32,7 +32,7 @@ curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | bash
 Create a cluster:
 
 ```
-k3d cluster create dockerfun -p "30000:30000@server[0]"
+k3d cluster create courselabs -p "30000:30000@server[0]"
 ```
 
 [Kubectl](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands) (pronounced "kube-cuttle" although not everyone agrees...) is the CLI for working with Kubernetes. 
@@ -190,7 +190,7 @@ kubectl delete -f ./labs/kubernetes/services/ -f ./labs/kubernetes/pods/
 And if you're using k3d you can remove the cluster completely:
 
 ```
-k3d cluster delete dockerfun
+k3d cluster delete courselabs
 ```
 
 Or with Docker Desktop, go back into settings and untick the _Enable Kubernetes_ option.

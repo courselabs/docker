@@ -89,7 +89,7 @@ And with some additional config you can add some useful auditing to your images:
 docker-compose -f core.yml -f build.yml -f args.yml build
 
 # this output shows label values:
-docker image inspect --format '{{.Config.Labels}}' dockerfundamentals/rng-api:21.05-0
+docker image inspect --format '{{.Config.Labels}}' courselabs/rng-api:21.05-0
 ```
 
 </details><br/>
@@ -120,7 +120,7 @@ docker-compose -f core.yml -f build.yml -f args.yml build
 # the tag is 2021.07-121
 
 # show the new label values:
-docker image inspect --format '{{.Config.Labels}}' dockerfundamentals/rng-api:2021.07-121
+docker image inspect --format '{{.Config.Labels}}' courselabs/rng-api:2021.07-121
 ```
 
 </details><br/>
@@ -139,7 +139,7 @@ This repo also has a GitHub Actions workflow to build the RNG images using the s
 
 This is a public repo so you can browse to the workflow output:
 
-https://github.com/courselabs/docker-fundamentals/actions/workflows/rng-build.yml
+https://github.com/courselabs/docker/actions/workflows/rng-build.yml
 
 📋 Drill down into the latest build output and you'll see an image tag being pushed. Pull that image and inspect the labels.
 
@@ -148,9 +148,9 @@ https://github.com/courselabs/docker-fundamentals/actions/workflows/rng-build.ym
 
 ```
 # the build version is appended to the image tag, e.g for build 16:
-docker pull dockerfundamentals/rng-api:21.05-16
+docker pull courselabs/rng-api:21.05-16
 
-docker image inspect dockerfundamentals/rng-api:21.05-16
+docker image inspect courselabs/rng-api:21.05-16
 ```
 
 </details><br/>
