@@ -147,10 +147,10 @@ https://github.com/courselabs/docker/actions/workflows/rng-build.yml
   <summary>Not sure how?</summary>
 
 ```
-# the build version is appended to the image tag, e.g for build 16:
-docker pull courselabs/rng-api:21.05-16
+# the build version is appended to the image tag, e.g for build 33:
+docker pull courselabs/rng-api:21.05-33
 
-docker image inspect courselabs/rng-api:21.05-16
+docker image inspect courselabs/rng-api:21.05-33
 ```
 
 </details><br/>
@@ -159,8 +159,8 @@ You'll see the actual build details stored in the image labels, something like t
 
 ```
 "Labels": {
-  "build_tag": "RNG App Docker Image Weekly Build-16-refs/heads/main",
-  "commit_sha": "f15714e90b4c242d71cf3bf618c262a427fc115d"
+  "build_tag": "RNG App Docker Image Weekly Build-33-refs/heads/main",
+  "commit_sha": "dcd4b265f1406182a2e671b574af44100dbdfdab"
 }
 ```
 
@@ -174,7 +174,7 @@ Look closely at the GitHub workflow and you'll see it runs two sets of builds an
 
 What is the difference when you use the extra Compose file and why does the workflow run this second build?
 
-Pull the API image from the tag in the second build and check if it's the same as the tag `21.05-16`.
+Pull the API image from the tag in the second build and check if it's the same as the tag `21.05-33`.
 
 > Stuck? Try [hints](hints.md) or check the [solution](solution.md).
 

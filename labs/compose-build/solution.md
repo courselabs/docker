@@ -6,7 +6,7 @@ The second part of the GitHub build uses the `latest` Docker Compose file:
 
 When you merge in the latest file it will build images with the tag `21.05`, which is the version for this release of the app.
 
-Consumers can use `21.05` to get the current build for this release, or `21.05-16` to get a specific build:
+Consumers can use `21.05` to get the current build for this release, or e.g. `21.05-33` to get a specific build:
 
 ```
 docker pull courselabs/rng-api:21.05
