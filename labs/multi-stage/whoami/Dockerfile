@@ -2,7 +2,7 @@ FROM golang:1.16.4-alpine AS builder
 ENV CGO_ENABLED=0
 
 RUN apk --no-cache --no-progress add \
-     ca-certificates\
+     ca-certificates \
      git \
      tzdata \
     && update-ca-certificates 

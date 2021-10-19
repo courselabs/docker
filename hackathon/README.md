@@ -35,7 +35,7 @@ You can use `docker build` commands to check all your components, but it might b
 <details>
   <summary>💡 Hints</summary>
 
-We have the source code for so you'll want to use multi-stage builds for the application components (except the database). The build steps are already written in scripts, so your job will be to find the right base images from Docker Hub and copy in the correct folder structure.
+We have the source code so you'll want to use multi-stage builds for the application components (except the database). The build steps are already written in scripts, so your job will be to find the right base images from Docker Hub and copy in the correct folder structure.
 
 </details><br/>
 
