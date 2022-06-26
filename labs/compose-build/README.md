@@ -27,7 +27,7 @@ docker-compose push --help
 
 All the source code for the random number app we've been usingis in the `rng` folder, along with the Dockerfile and a Compose file: 
 
-- [rng\docker-compose.yml](.\rng\docker-compose.yml) - includes the context and Dockerfile paths
+- [rng/docker-compose.yml](./rng/docker-compose.yml) - includes the context and Dockerfile paths
 
 All paths in Compose are relative to the location of the Compose file. 
 
@@ -147,10 +147,10 @@ https://github.com/courselabs/docker/actions/workflows/rng-build.yml
   <summary>Not sure how?</summary>
 
 ```
-# the build version is appended to the image tag, e.g for build 33:
-docker pull courselabs/rng-api:21.05-33
+# the build version is appended to the image tag, e.g for build 57:
+docker pull courselabs/rng-api:21.05-57
 
-docker image inspect courselabs/rng-api:21.05-33
+docker image inspect courselabs/rng-api:21.05-57
 ```
 
 </details><br/>
