@@ -1,0 +1,6 @@
+services:
+  rng-api:
+    image: courselabs/rng-api:21.05-linux-amd64
+
+  rng-web:
+    image: courselabs/rng-web:21.05-linux-amd64
