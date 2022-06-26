@@ -84,7 +84,7 @@ The new base image doesn't add anything to the [official Ubuntu image](https://h
 docker pull ubuntu
 
 # image versions are set in the tag name:
-docker pull ubuntu:20.04
+docker pull ubuntu:22.04
 ```
 
 </details><br/>

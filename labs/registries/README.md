@@ -197,7 +197,7 @@ Image references have enough detail for Docker to find the registry, and identif
 
 Docker uses defaults for the registry and the tag. What are those defaults? What is the full reference for the image `kiamol/ch05-pi`?
 
-Not all official images are on Docker Hub. Microsoft uses its own image registry *MCR* at `mcr.microsoft.com`. What command would you use to pull version `5.0` of the `dotnet/runtime` image from MCR?
+Not all official images are on Docker Hub. Microsoft uses its own image registry *MCR* at `mcr.microsoft.com`. What command would you use to pull version `6.0` of the `dotnet/runtime` image from MCR?
 
 > Stuck? Try [hints](hints.md) or check the [solution](solution.md).
 ___

@@ -21,5 +21,5 @@ docker image ls kiamol/ch05-pi
 For other registries you need to include the domain in the reference - so images on MCR need to be prefixed with `mcr.microsoft.com/`:
 
 ```
-docker pull mcr.microsoft.com/dotnet/runtime:5.0
+docker pull mcr.microsoft.com/dotnet/runtime:6.0
 ```
