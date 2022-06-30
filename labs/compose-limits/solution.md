@@ -1,6 +1,6 @@
 # Lab Solution
 
-It's all about having to run everything on a single servern:
+It's all about having to run everything on a single server:
 
 - when the server goes offline - planned or unplanned - you lose all your apps
 
@@ -9,3 +9,6 @@ It's all about having to run everything on a single servern:
 - same with config, any changes get deployed by replacing containers which means your app can be offline - and may be broken when it comes back if there's a config mistake
 
 - your scaling options are limited to the CPU, memory and network ports on the machine. Most important is the port - only one container can listen on a port, so you can't run multiple copies of a public-facing component.
+
+
+> Back to the [exercises](README.md).

@@ -174,7 +174,7 @@ Look closely at the GitHub workflow and you'll see it runs two sets of builds an
 
 What is the difference when you use the extra Compose file and why does the workflow run this second build?
 
-Pull the API image from the tag in the second build and check if it's the same as the tag `21.05-33`.
+Pull the API image from the tag in the second build and check if it's the same as the tag `21.05-57`.
 
 > Stuck? Try [hints](hints.md) or check the [solution](solution.md).
 
