@@ -137,7 +137,7 @@ The images you use and the commands you run are different for each language, but
 - [python](https://hub.docker.com/_/python) - has Pip installed for dependencies
 - [node](https://hub.docker.com/_/node) for Node.js apps - this has NPM so you can install packages in the build stage
 - [golang](https://hub.docker.com/_/golang) for Go apps - they don't need a runtime so the final image can start from [scratch](https://hub.docker.com/_/scratch)
-- [dotnet/sdk](https://hub.docker.com/_/microsoft-dotnet-sdk/) for .NET Core/5 apps, using [dotnet/runtime](https://hub.docker.com/_/microsoft-dotnet-runtime/) or [dotnet/aspnet](https://hub.docker.com/_/microsoft-dotnet-aspnet/) for the final app image
+- [dotnet/sdk](https://hub.docker.com/_/microsoft-dotnet-sdk/) for .NET Core/6 apps, using [dotnet/runtime](https://hub.docker.com/_/microsoft-dotnet-runtime/) or [dotnet/aspnet](https://hub.docker.com/_/microsoft-dotnet-aspnet/) for the final app image
 
 We won't cover different languages in detail. The [whoami Dockerfile](./whoami/Dockerfile) shows how the pattern works, using a Go application:
 
