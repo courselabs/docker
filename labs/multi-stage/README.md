@@ -75,7 +75,7 @@ export DOCKER_BUILDKIT=1
 # OR with PowerShell: 
 $env:DOCKER_BUILDKIT=1
 ```
-
+this will through the error
 Now repeat the build for the simple Dockerfile - this time Docker will use BuildKit:
 
 ```
