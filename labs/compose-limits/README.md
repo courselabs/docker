@@ -34,7 +34,7 @@ You'll see the two containers start. Browse to the app at http://localhost:8088 
   <summary>Not sure how?</summary>
 
 ```
-docker logs rng_rng-api_1
+docker logs rng-rng-api-1
 
 docker ps -a
 ```
@@ -46,7 +46,7 @@ docker ps -a
 You can restart a stopped container manually:
 
 ```
-docker start rng_rng-api_1
+docker start rng-rng-api-1
 ```
 
 > Now the app will work again, but only for three calls, then the API container will exit and you'll need to start it again.
@@ -113,7 +113,7 @@ There are multiple API containers, so Docker adds all their IP addresses to the 
 You can see all the API container IPs in the DNS response in the web container:
 
 ```
-docker exec -it rng_rng-web_1 nslookup rng-api
+docker exec -it rng-rng-web-1 nslookup rng-api
 ```
 
 > If you repeat that call you'll see the order of the addresses is randomized, which helps spread the load if the client just uses the first address in the list.
