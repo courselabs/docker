@@ -51,7 +51,7 @@ docker run alpine hostname
 
 </details><br/>
 
-> The container image doesn't get pulled this time, but the output is a different random string.
+> The container image doesn't get pulled this time, but this is a new container. The output is a different host name.
 
 Those containers ran a single command - printing the name of the machine, which is set by Docker. When the process completed, the container exited.
 
@@ -130,7 +130,7 @@ exit
 
 Linux OS containers for Docker usually have the bare-minimum toolset installed.
 
-The Ubuntu team publish a package for Ubuntu Server but it doesn't have all the usual tools installed. There's no [curl](), so you can't make HTTP calls, but the container runs as the root user so you have permissions to install anything you need:
+The Ubuntu team publish a package for Ubuntu Server but it doesn't have all the usual tools installed. There's no [curl](https://curl.se) so you can't make HTTP calls, but the container runs as the root user so you have permissions to install anything you need:
 
 ```
 docker run -it ubuntu
@@ -162,6 +162,8 @@ docker run ubuntu bash -c 'curl https://docker.courselabs.co'
 
 </details><br/>
 
+Containers are isolated - the changes you made to add curl were in a different container. A new Ubuntu container starts with the clean Ubuntu setup.
+
 Interactive containers can do fun things with the screen - this is useful to impress people with your hacking skills :)
 
 ```
@@ -180,6 +182,8 @@ Interactive containers are great for testing commands and exploring the containe
 These run in the background, so the container keeps running until the application process exits, or you stop the container.
 
 You'll use background containers for web servers, batch processes, databases message queues and any other server process.
+
+Try running the [Nginx](https://nginx.org) web server in a container:
 
 ```
 docker run -d -P --name nginx1 nginx:alpine
@@ -216,7 +220,7 @@ In this lab you'll work with Java containers:
 
 - find a package on Docker Hub which you can use to run a Java app
 - run a Java container and confirm which version of Java is installed using the `java -version` command
-- now find a *small* image for Java 8, with just the JRE runtime installed
+- now find a *small* image for Java, with just the JRE runtime installed
 
 > Stuck? Try [hints](hints.md) or check the [solution](solution.md).
 

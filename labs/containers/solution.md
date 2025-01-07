@@ -1,46 +1,39 @@
 # Lab Solution
 
-Search for `java` on Docker Hub and the official image is the top hit.
+Search for `java` on Docker Hub and the official image is the top hit, but open the page at https://hub.docker.com/_/java and you will see it's been deprecated.
 
-You might start by downloading the Java package:
+That means the `java` image (and the `openjdk` image which replaced it) are no longer being maintained. The images are old, so you should avoid them.
+
+There are a few alternatives with active maintainers (e.g. Amazon and IBM). My preference is for [eclipse-temurin](https://hub.docker.com/_/eclipse-temurin) which is an open-source build of OpenJDK.
+
+You might start by copying the command from the Docker Hub page, which will download the default image:
 
 ```
-docker pull java
+docker pull eclipse-temurin
 ```
 
 Run a container to check the Java version:
 
 ```
-docker run java java -version
+docker run eclipse-temurin java -version
 ```
 
-And then the JRE build for Alpine is the smallest:
+> The output will show the OpenJDK and JRE versions
+
+Check the [tags page on Docker Hub](https://hub.docker.com/_/eclipse-temurin/tags) and search for `alpine` and you'll see there are JRE and IDK versions. 
+
+The JRE build for Alpine is the smallest - the tag contains the version number, so this pulls a small JRE image for OpenJDK 23:
 
 ```
-docker pull java:8-jre-alpine
+docker pull eclipse-temurin:23-jre-alpine
 ```
 
-```
-docker image ls java
-```
-
-> Latest is 640MB; 8 JRE is 100MB *but* both 5 years old...
-
-## Using OpenJDK
-
-The official Java page on Docker Hub is actually a redirect to the OpenJDK package, which is an open-source Java runtime.
-
-But the `java` package is not the same as `openjdk` - and you should use `openjdk` because it's more up-to-date:
+Check the sizes:
 
 ```
-docker pull openjdk
-docker pull openjdk:8-jre-alpine
+docker image ls eclipse-temurin
 ```
 
-The default image tag is much more recent, and both images are smaller:
-
-```
-docker image ls openjdk
-```
+> Your output may be different, but mine shows the default ("latest") image is 478MB; Alpin JRE is 206MB...
 
 > Back to the [exercises](README.md).
